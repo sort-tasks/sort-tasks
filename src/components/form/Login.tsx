@@ -29,7 +29,7 @@ export const Login = ({ onSubmit }: LoginProps) => {
   };
 
   return (
-    <form onSubmit={handleOnSubmit}>
+    <form onSubmit={handleOnSubmit} className="space-x-4">
       <Input
         type="email"
         placeholder="email"

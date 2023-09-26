@@ -50,7 +50,7 @@ export type AuthRegisterInput = {
 export type Category = {
   __typename?: "Category";
   createdAt: Scalars["DateTime"]["output"];
-  id?: Maybe<Scalars["UUID"]["output"]>;
+  id: Scalars["UUID"]["output"];
   name: Scalars["String"]["output"];
   updatedAt: Scalars["DateTime"]["output"];
 };
@@ -61,8 +61,8 @@ export type CategoryCreateInput = {
 
 export type CategoryListResult = {
   __typename?: "CategoryListResult";
-  data?: Maybe<Array<Maybe<Category>>>;
-  pagination?: Maybe<Pagination>;
+  data?: Maybe<Array<Category>>;
+  pagination: Pagination;
 };
 
 export type CategorySingleResult = {
@@ -133,11 +133,11 @@ export type QueryFindManyTaskArgs = {
 
 export type Task = {
   __typename?: "Task";
-  category?: Maybe<CategorySingleResult>;
-  categoryId?: Maybe<Scalars["UUID"]["output"]>;
+  category: CategorySingleResult;
+  categoryId: Scalars["UUID"]["output"];
   createdAt: Scalars["DateTime"]["output"];
   description?: Maybe<Scalars["String"]["output"]>;
-  id?: Maybe<Scalars["UUID"]["output"]>;
+  id: Scalars["UUID"]["output"];
   isCompleted: Scalars["Boolean"]["output"];
   name: Scalars["String"]["output"];
   updatedAt: Scalars["DateTime"]["output"];
@@ -152,8 +152,8 @@ export type TaskCreateInput = {
 
 export type TaskListResult = {
   __typename?: "TaskListResult";
-  data?: Maybe<Array<Maybe<Task>>>;
-  pagination?: Maybe<Pagination>;
+  data?: Maybe<Array<Task>>;
+  pagination: Pagination;
 };
 
 export type TaskUpdateInput = {
@@ -214,4 +214,100 @@ export type RegisterMutationVariables = Exact<{
 export type RegisterMutation = {
   __typename?: "Mutation";
   authRegister?: string | null;
+};
+
+export type FindManyCategoryQueryVariables = Exact<{ [key: string]: never }>;
+
+export type FindManyCategoryQuery = {
+  __typename?: "Query";
+  findManyCategory: {
+    __typename?: "CategoryListResult";
+    pagination: { __typename?: "Pagination"; totalItems?: number | null };
+    data?: Array<{
+      __typename?: "Category";
+      createdAt: string;
+      id: string;
+      name: string;
+      updatedAt: string;
+    }> | null;
+  };
+};
+
+export type TaskFragment = {
+  __typename?: "Task";
+  updatedAt: string;
+  name: string;
+  isCompleted: boolean;
+  id: string;
+  description?: string | null;
+  createdAt: string;
+  categoryId: string;
+  category: {
+    __typename?: "CategorySingleResult";
+    data?: {
+      __typename?: "Category";
+      id: string;
+      name: string;
+      updatedAt: string;
+      createdAt: string;
+    } | null;
+  };
+};
+
+export type FindManyTaskQueryVariables = Exact<{ [key: string]: never }>;
+
+export type FindManyTaskQuery = {
+  __typename?: "Query";
+  findManyTask: {
+    __typename?: "TaskListResult";
+    pagination: { __typename?: "Pagination"; totalItems?: number | null };
+    data?: Array<{
+      __typename?: "Task";
+      updatedAt: string;
+      name: string;
+      isCompleted: boolean;
+      id: string;
+      description?: string | null;
+      createdAt: string;
+      categoryId: string;
+      category: {
+        __typename?: "CategorySingleResult";
+        data?: {
+          __typename?: "Category";
+          id: string;
+          name: string;
+          updatedAt: string;
+          createdAt: string;
+        } | null;
+      };
+    }> | null;
+  };
+};
+
+export type TaskCreateMutationVariables = Exact<{
+  input: TaskCreateInput;
+}>;
+
+export type TaskCreateMutation = {
+  __typename?: "Mutation";
+  taskCreate: {
+    __typename?: "Task";
+    updatedAt: string;
+    name: string;
+    isCompleted: boolean;
+    id: string;
+    description?: string | null;
+    createdAt: string;
+    categoryId: string;
+    category: {
+      __typename?: "CategorySingleResult";
+      data?: {
+        __typename?: "Category";
+        id: string;
+        name: string;
+        updatedAt: string;
+        createdAt: string;
+      } | null;
+    };
+  };
 };
