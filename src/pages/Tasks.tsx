@@ -37,8 +37,8 @@ export default function Tasks() {
       {loading && <p>Loading...</p>}
       {!loading && tasks.length === 0 && <p>No tasks found.</p>}
       <div className="space-y-2">
-        {tasks.map((task) => (
-          <Task task={task} key={task.id} />
+        {tasks.map((task, index) => (
+          <Task task={task} index={index + 1} key={task.id} />
         ))}
       </div>
     </main>
