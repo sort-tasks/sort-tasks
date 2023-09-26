@@ -3,11 +3,12 @@ import { gql } from '@apollo/client';
 const TaskFragment = gql`
   fragment Task on Task {
     updatedAt
-    name
+    title
     isCompleted
     id
     description
     createdAt
+    completedAt
     categoryId
     category {
       data {

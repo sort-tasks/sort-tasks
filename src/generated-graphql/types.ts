@@ -50,13 +50,17 @@ export type AuthRegisterInput = {
 export type Category = {
   __typename?: "Category";
   createdAt: Scalars["DateTime"]["output"];
+  description?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["UUID"]["output"];
   name: Scalars["String"]["output"];
+  ordering: Scalars["Int"]["output"];
   updatedAt: Scalars["DateTime"]["output"];
 };
 
 export type CategoryCreateInput = {
+  description?: InputMaybe<Scalars["String"]["input"]>;
   name: Scalars["String"]["input"];
+  ordering: Scalars["Int"]["input"];
 };
 
 export type CategoryListResult = {
@@ -71,7 +75,9 @@ export type CategorySingleResult = {
 };
 
 export type CategoryUpdateInput = {
+  description?: InputMaybe<Scalars["String"]["input"]>;
   name: Scalars["String"]["input"];
+  ordering: Scalars["Int"]["input"];
 };
 
 export type Mutation = {
@@ -135,19 +141,21 @@ export type Task = {
   __typename?: "Task";
   category: CategorySingleResult;
   categoryId: Scalars["UUID"]["output"];
+  completedAt?: Maybe<Scalars["DateTime"]["output"]>;
   createdAt: Scalars["DateTime"]["output"];
   description?: Maybe<Scalars["String"]["output"]>;
   id: Scalars["UUID"]["output"];
   isCompleted: Scalars["Boolean"]["output"];
-  name: Scalars["String"]["output"];
+  title: Scalars["String"]["output"];
   updatedAt: Scalars["DateTime"]["output"];
 };
 
 export type TaskCreateInput = {
   categoryId: Scalars["UUID"]["input"];
+  completedAt?: InputMaybe<Scalars["DateTime"]["input"]>;
   description?: InputMaybe<Scalars["String"]["input"]>;
   isCompleted?: InputMaybe<Scalars["Boolean"]["input"]>;
-  name: Scalars["String"]["input"];
+  title: Scalars["String"]["input"];
 };
 
 export type TaskListResult = {
@@ -158,9 +166,10 @@ export type TaskListResult = {
 
 export type TaskUpdateInput = {
   categoryId: Scalars["UUID"]["input"];
+  completedAt?: InputMaybe<Scalars["DateTime"]["input"]>;
   description?: InputMaybe<Scalars["String"]["input"]>;
   isCompleted?: InputMaybe<Scalars["Boolean"]["input"]>;
-  name: Scalars["String"]["input"];
+  title: Scalars["String"]["input"];
 };
 
 export type User = {
@@ -216,6 +225,15 @@ export type RegisterMutation = {
   authRegister?: string | null;
 };
 
+export type CategoryFragment = {
+  __typename?: "Category";
+  createdAt: string;
+  id: string;
+  name: string;
+  ordering: number;
+  updatedAt: string;
+};
+
 export type FindManyCategoryQueryVariables = Exact<{ [key: string]: never }>;
 
 export type FindManyCategoryQuery = {
@@ -228,6 +246,7 @@ export type FindManyCategoryQuery = {
       createdAt: string;
       id: string;
       name: string;
+      ordering: number;
       updatedAt: string;
     }> | null;
   };
@@ -236,11 +255,12 @@ export type FindManyCategoryQuery = {
 export type TaskFragment = {
   __typename?: "Task";
   updatedAt: string;
-  name: string;
+  title: string;
   isCompleted: boolean;
   id: string;
   description?: string | null;
   createdAt: string;
+  completedAt?: string | null;
   categoryId: string;
   category: {
     __typename?: "CategorySingleResult";
@@ -264,11 +284,12 @@ export type FindManyTaskQuery = {
     data?: Array<{
       __typename?: "Task";
       updatedAt: string;
-      name: string;
+      title: string;
       isCompleted: boolean;
       id: string;
       description?: string | null;
       createdAt: string;
+      completedAt?: string | null;
       categoryId: string;
       category: {
         __typename?: "CategorySingleResult";
@@ -293,11 +314,12 @@ export type TaskCreateMutation = {
   taskCreate: {
     __typename?: "Task";
     updatedAt: string;
-    name: string;
+    title: string;
     isCompleted: boolean;
     id: string;
     description?: string | null;
     createdAt: string;
+    completedAt?: string | null;
     categoryId: string;
     category: {
       __typename?: "CategorySingleResult";
@@ -322,11 +344,12 @@ export type TaskUpdateMutation = {
   taskUpdate: {
     __typename?: "Task";
     updatedAt: string;
-    name: string;
+    title: string;
     isCompleted: boolean;
     id: string;
     description?: string | null;
     createdAt: string;
+    completedAt?: string | null;
     categoryId: string;
     category: {
       __typename?: "CategorySingleResult";

@@ -11,7 +11,7 @@ export default function Tasks() {
 
   const tasks = data?.findManyTask?.data ?? [];
 
-  const handleSubmit = async (input: { name: string; categoryId: string }) => {
+  const handleSubmit = async (input: { title: string; categoryId: string }) => {
     try {
       await createTask({
         variables: {

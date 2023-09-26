@@ -21,7 +21,7 @@ export const Task = ({ task }: TaskProps) => {
         variables: {
           taskId: task.id,
           input: {
-            name: task.name,
+            title: task.title,
             categoryId: task.categoryId,
             isCompleted: !task.isCompleted,
           },
@@ -66,7 +66,7 @@ export const Task = ({ task }: TaskProps) => {
             'text-opacity-50': task.isCompleted,
           })}
         >
-          {task.name}
+          {task.title}
         </h3>
         <p
           className={clsx('text-sm text-opacity-50 text-white', {

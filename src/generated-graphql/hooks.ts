@@ -3,14 +3,24 @@ import * as Types from "./types.ts";
 import { gql } from "@apollo/client";
 import * as Apollo from "@apollo/client";
 const defaultOptions = {} as const;
+export const CategoryFragmentDoc = gql`
+  fragment Category on Category {
+    createdAt
+    id
+    name
+    ordering
+    updatedAt
+  }
+`;
 export const TaskFragmentDoc = gql`
   fragment Task on Task {
     updatedAt
-    name
+    title
     isCompleted
     id
     description
     createdAt
+    completedAt
     categoryId
     category {
       data {
@@ -181,13 +191,11 @@ export const FindManyCategoryDocument = gql`
         totalItems
       }
       data {
-        createdAt
-        id
-        name
-        updatedAt
+        ...Category
       }
     }
   }
+  ${CategoryFragmentDoc}
 `;
 
 /**
