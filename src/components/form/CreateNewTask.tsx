@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 import { Input } from 'components/form/Input';
 import { Button } from 'components/form/Button';
@@ -32,6 +33,12 @@ export const CreateNewTask = ({ onSubmit }: CreateNewTaskProps) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!form.title || !form.categoryId) {
+      toast.error('Please fill all fields');
+      return;
+    }
+
     setSubmitting(true);
     await onSubmit(form);
     setForm({
