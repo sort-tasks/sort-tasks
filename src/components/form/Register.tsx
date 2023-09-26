@@ -1,15 +1,10 @@
 import { useState } from 'react';
 
-import { Input } from 'components/form/Input';
 import { Button } from 'components/form/Button';
+import { Input } from 'components/form/Input';
 
 type RegisterProps = {
-  onSubmit: (form: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-  }) => void;
+  onSubmit: (form: { firstName: string; lastName: string; email: string; password: string }) => void;
 };
 
 export const Register = ({ onSubmit }: RegisterProps) => {
@@ -65,14 +60,7 @@ export const Register = ({ onSubmit }: RegisterProps) => {
           />
         </div>
       </div>
-      <Input
-        type="email"
-        name="email"
-        placeholder="email"
-        value={form.email}
-        onChange={handleChange}
-        required
-      />
+      <Input type="email" name="email" placeholder="email" value={form.email} onChange={handleChange} required />
       <Input
         type="password"
         name="password"

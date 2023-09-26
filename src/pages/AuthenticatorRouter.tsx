@@ -1,18 +1,15 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
-import * as Types from 'generated-graphql/types';
-import { useMeLazyQuery, useLoginMutation, useRegisterMutation } from 'generated-graphql/hooks';
 
 import { Login } from 'components/form/Login';
 import { Register } from 'components/form/Register';
+import { useLoginMutation, useMeLazyQuery, useRegisterMutation } from 'generated-graphql/hooks';
+import * as Types from 'generated-graphql/types';
 
 export const AuthenticatorRouter = ({ children }: { children: React.ReactNode }) => {
   const [isLogged, setIsLogged] = useState(false);
   const [checkingAuthenticator, setCheckingAuthenticator] = useState(true);
-  const [user, setUser] = useState<Pick<
-    Types.User,
-    'id' | 'firstName' | 'lastName' | 'email'
-  > | null>(null);
+  const [user, setUser] = useState<Pick<Types.User, 'id' | 'firstName' | 'lastName' | 'email'> | null>(null);
   const [me] = useMeLazyQuery();
   const [login] = useLoginMutation();
   const [register] = useRegisterMutation();
@@ -59,12 +56,7 @@ export const AuthenticatorRouter = ({ children }: { children: React.ReactNode })
     }
   };
 
-  const handleRegister = async (input: {
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-  }) => {
+  const handleRegister = async (input: { firstName: string; lastName: string; email: string; password: string }) => {
     try {
       const { data } = await register({
         variables: {
@@ -121,9 +113,7 @@ export const AuthenticatorRouter = ({ children }: { children: React.ReactNode })
           <Login onSubmit={handleLogin} />
         </div>
         <div className="border-y border-gray-700 px-6 py-8   bg-gray-400   bg-opacity-10  sm:rounded-xl sm:border-x  w-1/2">
-          <h2 className="text-xl font-bold  sm:bg-transparent bg-gray-500 bg-opacity-10 text-center  mb-6">
-            Register
-          </h2>
+          <h2 className="text-xl font-bold  sm:bg-transparent bg-gray-500 bg-opacity-10 text-center  mb-6">Register</h2>
           <Register onSubmit={handleRegister} />
         </div>
       </div>

@@ -1,12 +1,13 @@
-import React from 'react';
 import { ApolloProvider } from '@apollo/client';
-import Tasks from 'pages/Tasks';
+import React from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import { AuthenticatorRouter } from './pages/AuthenticatorRouter';
+import { client } from 'apolloClient';
+import { AuthenticatorRouter } from 'pages/AuthenticatorRouter';
+import Tasks from 'pages/Tasks';
+
 import './index.css';
-import { client } from './apolloClient';
 
 export const App = () => {
   return (

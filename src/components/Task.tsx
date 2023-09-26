@@ -1,9 +1,9 @@
-import { toast } from 'react-toastify';
 import clsx from 'clsx';
+import { toast } from 'react-toastify';
 
-import { IconSquare, IconPencilSquare, IconCheckSquare } from 'components/icons';
-import { TaskFragment } from 'generated-graphql/types';
+import { IconCheckSquare, IconPencilSquare, IconSquare } from 'components/icons';
 import { useTaskUpdateMutation } from 'generated-graphql/hooks';
+import { TaskFragment } from 'generated-graphql/types';
 
 type TaskProps = {
   task: TaskFragment;
@@ -12,9 +12,7 @@ type TaskProps = {
 export const Task = ({ task }: TaskProps) => {
   const [updateTask] = useTaskUpdateMutation();
 
-  const handleToggleButtonClicked = async (
-    event: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
+  const handleToggleButtonClicked = async (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     event.stopPropagation();
     try {
       await updateTask({
@@ -48,7 +46,7 @@ export const Task = ({ task }: TaskProps) => {
         {
           'bg-gray-400 bg-opacity-10 border-gray-700': !task.isCompleted,
           'bg-gray-400 bg-opacity-5 border-gray-800 text-opacity-50': task.isCompleted,
-        }
+        },
       )}
       role="button"
       onClick={handleCardClicked}

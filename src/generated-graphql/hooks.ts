@@ -1,7 +1,8 @@
-import * as Types from "./types.ts";
+import { gql } from '@apollo/client';
+import * as Apollo from '@apollo/client';
 
-import { gql } from "@apollo/client";
-import * as Apollo from "@apollo/client";
+import * as Types from './types.ts';
+
 const defaultOptions = {} as const;
 export const CategoryFragmentDoc = gql`
   fragment Category on Category {
@@ -58,33 +59,17 @@ export const MeDocument = gql`
  *   },
  * });
  */
-export function useMeQuery(
-  baseOptions?: Apollo.QueryHookOptions<Types.MeQuery, Types.MeQueryVariables>,
-) {
+export function useMeQuery(baseOptions?: Apollo.QueryHookOptions<Types.MeQuery, Types.MeQueryVariables>) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<Types.MeQuery, Types.MeQueryVariables>(
-    MeDocument,
-    options,
-  );
+  return Apollo.useQuery<Types.MeQuery, Types.MeQueryVariables>(MeDocument, options);
 }
-export function useMeLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    Types.MeQuery,
-    Types.MeQueryVariables
-  >,
-) {
+export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.MeQuery, Types.MeQueryVariables>) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<Types.MeQuery, Types.MeQueryVariables>(
-    MeDocument,
-    options,
-  );
+  return Apollo.useLazyQuery<Types.MeQuery, Types.MeQueryVariables>(MeDocument, options);
 }
 export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
 export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
-export type MeQueryResult = Apollo.QueryResult<
-  Types.MeQuery,
-  Types.MeQueryVariables
->;
+export type MeQueryResult = Apollo.QueryResult<Types.MeQuery, Types.MeQueryVariables>;
 export const LoginDocument = gql`
   mutation Login($input: AuthLoginInput!) {
     authLogin(input: $input) {
@@ -98,10 +83,7 @@ export const LoginDocument = gql`
     }
   }
 `;
-export type LoginMutationFn = Apollo.MutationFunction<
-  Types.LoginMutation,
-  Types.LoginMutationVariables
->;
+export type LoginMutationFn = Apollo.MutationFunction<Types.LoginMutation, Types.LoginMutationVariables>;
 
 /**
  * __useLoginMutation__
@@ -121,32 +103,20 @@ export type LoginMutationFn = Apollo.MutationFunction<
  * });
  */
 export function useLoginMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    Types.LoginMutation,
-    Types.LoginMutationVariables
-  >,
+  baseOptions?: Apollo.MutationHookOptions<Types.LoginMutation, Types.LoginMutationVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<Types.LoginMutation, Types.LoginMutationVariables>(
-    LoginDocument,
-    options,
-  );
+  return Apollo.useMutation<Types.LoginMutation, Types.LoginMutationVariables>(LoginDocument, options);
 }
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<Types.LoginMutation>;
-export type LoginMutationOptions = Apollo.BaseMutationOptions<
-  Types.LoginMutation,
-  Types.LoginMutationVariables
->;
+export type LoginMutationOptions = Apollo.BaseMutationOptions<Types.LoginMutation, Types.LoginMutationVariables>;
 export const RegisterDocument = gql`
   mutation Register($input: AuthRegisterInput!) {
     authRegister(input: $input)
   }
 `;
-export type RegisterMutationFn = Apollo.MutationFunction<
-  Types.RegisterMutation,
-  Types.RegisterMutationVariables
->;
+export type RegisterMutationFn = Apollo.MutationFunction<Types.RegisterMutation, Types.RegisterMutationVariables>;
 
 /**
  * __useRegisterMutation__
@@ -166,20 +136,13 @@ export type RegisterMutationFn = Apollo.MutationFunction<
  * });
  */
 export function useRegisterMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    Types.RegisterMutation,
-    Types.RegisterMutationVariables
-  >,
+  baseOptions?: Apollo.MutationHookOptions<Types.RegisterMutation, Types.RegisterMutationVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    Types.RegisterMutation,
-    Types.RegisterMutationVariables
-  >(RegisterDocument, options);
+  return Apollo.useMutation<Types.RegisterMutation, Types.RegisterMutationVariables>(RegisterDocument, options);
 }
 export type RegisterMutationHookResult = ReturnType<typeof useRegisterMutation>;
-export type RegisterMutationResult =
-  Apollo.MutationResult<Types.RegisterMutation>;
+export type RegisterMutationResult = Apollo.MutationResult<Types.RegisterMutation>;
 export type RegisterMutationOptions = Apollo.BaseMutationOptions<
   Types.RegisterMutation,
   Types.RegisterMutationVariables
@@ -214,35 +177,25 @@ export const FindManyCategoryDocument = gql`
  * });
  */
 export function useFindManyCategoryQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    Types.FindManyCategoryQuery,
-    Types.FindManyCategoryQueryVariables
-  >,
+  baseOptions?: Apollo.QueryHookOptions<Types.FindManyCategoryQuery, Types.FindManyCategoryQueryVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    Types.FindManyCategoryQuery,
-    Types.FindManyCategoryQueryVariables
-  >(FindManyCategoryDocument, options);
+  return Apollo.useQuery<Types.FindManyCategoryQuery, Types.FindManyCategoryQueryVariables>(
+    FindManyCategoryDocument,
+    options,
+  );
 }
 export function useFindManyCategoryLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    Types.FindManyCategoryQuery,
-    Types.FindManyCategoryQueryVariables
-  >,
+  baseOptions?: Apollo.LazyQueryHookOptions<Types.FindManyCategoryQuery, Types.FindManyCategoryQueryVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    Types.FindManyCategoryQuery,
-    Types.FindManyCategoryQueryVariables
-  >(FindManyCategoryDocument, options);
+  return Apollo.useLazyQuery<Types.FindManyCategoryQuery, Types.FindManyCategoryQueryVariables>(
+    FindManyCategoryDocument,
+    options,
+  );
 }
-export type FindManyCategoryQueryHookResult = ReturnType<
-  typeof useFindManyCategoryQuery
->;
-export type FindManyCategoryLazyQueryHookResult = ReturnType<
-  typeof useFindManyCategoryLazyQuery
->;
+export type FindManyCategoryQueryHookResult = ReturnType<typeof useFindManyCategoryQuery>;
+export type FindManyCategoryLazyQueryHookResult = ReturnType<typeof useFindManyCategoryLazyQuery>;
 export type FindManyCategoryQueryResult = Apollo.QueryResult<
   Types.FindManyCategoryQuery,
   Types.FindManyCategoryQueryVariables
@@ -277,39 +230,20 @@ export const FindManyTaskDocument = gql`
  * });
  */
 export function useFindManyTaskQuery(
-  baseOptions?: Apollo.QueryHookOptions<
-    Types.FindManyTaskQuery,
-    Types.FindManyTaskQueryVariables
-  >,
+  baseOptions?: Apollo.QueryHookOptions<Types.FindManyTaskQuery, Types.FindManyTaskQueryVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useQuery<
-    Types.FindManyTaskQuery,
-    Types.FindManyTaskQueryVariables
-  >(FindManyTaskDocument, options);
+  return Apollo.useQuery<Types.FindManyTaskQuery, Types.FindManyTaskQueryVariables>(FindManyTaskDocument, options);
 }
 export function useFindManyTaskLazyQuery(
-  baseOptions?: Apollo.LazyQueryHookOptions<
-    Types.FindManyTaskQuery,
-    Types.FindManyTaskQueryVariables
-  >,
+  baseOptions?: Apollo.LazyQueryHookOptions<Types.FindManyTaskQuery, Types.FindManyTaskQueryVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useLazyQuery<
-    Types.FindManyTaskQuery,
-    Types.FindManyTaskQueryVariables
-  >(FindManyTaskDocument, options);
+  return Apollo.useLazyQuery<Types.FindManyTaskQuery, Types.FindManyTaskQueryVariables>(FindManyTaskDocument, options);
 }
-export type FindManyTaskQueryHookResult = ReturnType<
-  typeof useFindManyTaskQuery
->;
-export type FindManyTaskLazyQueryHookResult = ReturnType<
-  typeof useFindManyTaskLazyQuery
->;
-export type FindManyTaskQueryResult = Apollo.QueryResult<
-  Types.FindManyTaskQuery,
-  Types.FindManyTaskQueryVariables
->;
+export type FindManyTaskQueryHookResult = ReturnType<typeof useFindManyTaskQuery>;
+export type FindManyTaskLazyQueryHookResult = ReturnType<typeof useFindManyTaskLazyQuery>;
+export type FindManyTaskQueryResult = Apollo.QueryResult<Types.FindManyTaskQuery, Types.FindManyTaskQueryVariables>;
 export const TaskCreateDocument = gql`
   mutation TaskCreate($input: TaskCreateInput!) {
     taskCreate(input: $input) {
@@ -318,10 +252,7 @@ export const TaskCreateDocument = gql`
   }
   ${TaskFragmentDoc}
 `;
-export type TaskCreateMutationFn = Apollo.MutationFunction<
-  Types.TaskCreateMutation,
-  Types.TaskCreateMutationVariables
->;
+export type TaskCreateMutationFn = Apollo.MutationFunction<Types.TaskCreateMutation, Types.TaskCreateMutationVariables>;
 
 /**
  * __useTaskCreateMutation__
@@ -341,22 +272,13 @@ export type TaskCreateMutationFn = Apollo.MutationFunction<
  * });
  */
 export function useTaskCreateMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    Types.TaskCreateMutation,
-    Types.TaskCreateMutationVariables
-  >,
+  baseOptions?: Apollo.MutationHookOptions<Types.TaskCreateMutation, Types.TaskCreateMutationVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    Types.TaskCreateMutation,
-    Types.TaskCreateMutationVariables
-  >(TaskCreateDocument, options);
+  return Apollo.useMutation<Types.TaskCreateMutation, Types.TaskCreateMutationVariables>(TaskCreateDocument, options);
 }
-export type TaskCreateMutationHookResult = ReturnType<
-  typeof useTaskCreateMutation
->;
-export type TaskCreateMutationResult =
-  Apollo.MutationResult<Types.TaskCreateMutation>;
+export type TaskCreateMutationHookResult = ReturnType<typeof useTaskCreateMutation>;
+export type TaskCreateMutationResult = Apollo.MutationResult<Types.TaskCreateMutation>;
 export type TaskCreateMutationOptions = Apollo.BaseMutationOptions<
   Types.TaskCreateMutation,
   Types.TaskCreateMutationVariables
@@ -369,10 +291,7 @@ export const TaskUpdateDocument = gql`
   }
   ${TaskFragmentDoc}
 `;
-export type TaskUpdateMutationFn = Apollo.MutationFunction<
-  Types.TaskUpdateMutation,
-  Types.TaskUpdateMutationVariables
->;
+export type TaskUpdateMutationFn = Apollo.MutationFunction<Types.TaskUpdateMutation, Types.TaskUpdateMutationVariables>;
 
 /**
  * __useTaskUpdateMutation__
@@ -393,22 +312,13 @@ export type TaskUpdateMutationFn = Apollo.MutationFunction<
  * });
  */
 export function useTaskUpdateMutation(
-  baseOptions?: Apollo.MutationHookOptions<
-    Types.TaskUpdateMutation,
-    Types.TaskUpdateMutationVariables
-  >,
+  baseOptions?: Apollo.MutationHookOptions<Types.TaskUpdateMutation, Types.TaskUpdateMutationVariables>,
 ) {
   const options = { ...defaultOptions, ...baseOptions };
-  return Apollo.useMutation<
-    Types.TaskUpdateMutation,
-    Types.TaskUpdateMutationVariables
-  >(TaskUpdateDocument, options);
+  return Apollo.useMutation<Types.TaskUpdateMutation, Types.TaskUpdateMutationVariables>(TaskUpdateDocument, options);
 }
-export type TaskUpdateMutationHookResult = ReturnType<
-  typeof useTaskUpdateMutation
->;
-export type TaskUpdateMutationResult =
-  Apollo.MutationResult<Types.TaskUpdateMutation>;
+export type TaskUpdateMutationHookResult = ReturnType<typeof useTaskUpdateMutation>;
+export type TaskUpdateMutationResult = Apollo.MutationResult<Types.TaskUpdateMutation>;
 export type TaskUpdateMutationOptions = Apollo.BaseMutationOptions<
   Types.TaskUpdateMutation,
   Types.TaskUpdateMutationVariables

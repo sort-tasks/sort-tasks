@@ -1,10 +1,9 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import { Input } from 'components/form/Input';
 import { Button } from 'components/form/Button';
-
 import { CategorySelect } from 'components/form/CategorySelect';
+import { Input } from 'components/form/Input';
 
 type CreateNewTaskProps = {
   onSubmit: (form: { title: string; categoryId: string }) => Promise<void>;

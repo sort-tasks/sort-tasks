@@ -1,8 +1,7 @@
 import { toast } from 'react-toastify';
 
-import { CreateNewTask } from 'components/form/CreateNewTask';
 import { Task } from 'components/Task';
-
+import { CreateNewTask } from 'components/form/CreateNewTask';
 import { useFindManyTaskQuery, useTaskCreateMutation } from 'generated-graphql/hooks';
 
 export default function Tasks() {

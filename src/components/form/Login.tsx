@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import { Input } from 'components/form/Input';
 import { Button } from 'components/form/Button';
+import { Input } from 'components/form/Input';
 
 type LoginProps = {
   onSubmit: (form: { email: string; password: string }) => void;
@@ -30,14 +30,7 @@ export const Login = ({ onSubmit }: LoginProps) => {
 
   return (
     <form onSubmit={handleOnSubmit} className="space-x-4">
-      <Input
-        type="email"
-        placeholder="email"
-        name="email"
-        value={form.email}
-        onChange={handleChange}
-        required
-      />
+      <Input type="email" placeholder="email" name="email" value={form.email} onChange={handleChange} required />
       <Input
         type="password"
         name="password"

@@ -1,9 +1,9 @@
-import { useState } from 'react';
 import clsx from 'clsx';
-import { Input } from 'components/form/Input';
+import { useState } from 'react';
 
-import * as Types from 'generated-graphql/types';
+import { Input } from 'components/form/Input';
 import { useFindManyCategoryQuery } from 'generated-graphql/hooks';
+import * as Types from 'generated-graphql/types';
 
 type CategorySelectProps = {
   onChange: (categoryId: string) => void;
@@ -65,9 +65,7 @@ export const CategorySelect = ({ onChange }: CategorySelectProps) => {
       >
         {loading && <p>Loading...</p>}
         <div className="absolute top-full bg-[#423847] py-4 rounded-lg  shadow-black shadow-xl mt-2">
-          {!loading && categoryFilteredByTerm.length === 0 && (
-            <p className="px-4 py-2">No categories found.</p>
-          )}
+          {!loading && categoryFilteredByTerm.length === 0 && <p className="px-4 py-2">No categories found.</p>}
           {categoryFilteredByTerm.map((category) => (
             <button
               key={category.id}
