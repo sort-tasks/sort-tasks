@@ -2,13 +2,13 @@ import { toast } from 'react-toastify';
 
 import { Task } from 'components/Task';
 import { CreateNewTask } from 'components/form/CreateNewTask';
-import { useFindManyTaskQuery, useTaskCreateMutation } from 'generated-graphql/hooks';
+import { useOrderedTasksByCategoryQuery, useTaskCreateMutation } from 'generated-graphql/hooks';
 
 export default function Tasks() {
-  const { data, loading, error, refetch } = useFindManyTaskQuery();
+  const { data, loading, error, refetch } = useOrderedTasksByCategoryQuery();
   const [createTask] = useTaskCreateMutation();
 
-  const tasks = data?.findManyTask?.data ?? [];
+  const tasks = data?.orderedTasksByCategory?.data ?? [];
 
   const handleSubmit = async (input: { title: string; categoryId: string }) => {
     try {

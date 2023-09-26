@@ -14,6 +14,7 @@ const TaskFragment = gql`
       data {
         id
         name
+        ordering
         updatedAt
         createdAt
       }
@@ -47,6 +48,19 @@ export const TaskUpdate = gql`
   mutation TaskUpdate($taskId: UUID!, $input: TaskUpdateInput!) {
     taskUpdate(id: $taskId, input: $input) {
       ...Task
+    }
+  }
+`;
+
+export const OrderedTasksByCategory = gql`
+  query OrderedTasksByCategory {
+    orderedTasksByCategory {
+      pagination {
+        totalItems
+      }
+      data {
+        ...Task
+      }
     }
   }
 `;
