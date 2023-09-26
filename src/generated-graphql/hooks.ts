@@ -353,3 +353,55 @@ export type TaskCreateMutationOptions = Apollo.BaseMutationOptions<
   Types.TaskCreateMutation,
   Types.TaskCreateMutationVariables
 >;
+export const TaskUpdateDocument = gql`
+  mutation TaskUpdate($taskId: UUID!, $input: TaskUpdateInput!) {
+    taskUpdate(id: $taskId, input: $input) {
+      ...Task
+    }
+  }
+  ${TaskFragmentDoc}
+`;
+export type TaskUpdateMutationFn = Apollo.MutationFunction<
+  Types.TaskUpdateMutation,
+  Types.TaskUpdateMutationVariables
+>;
+
+/**
+ * __useTaskUpdateMutation__
+ *
+ * To run a mutation, you first call `useTaskUpdateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useTaskUpdateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [taskUpdateMutation, { data, loading, error }] = useTaskUpdateMutation({
+ *   variables: {
+ *      taskId: // value for 'taskId'
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useTaskUpdateMutation(
+  baseOptions?: Apollo.MutationHookOptions<
+    Types.TaskUpdateMutation,
+    Types.TaskUpdateMutationVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useMutation<
+    Types.TaskUpdateMutation,
+    Types.TaskUpdateMutationVariables
+  >(TaskUpdateDocument, options);
+}
+export type TaskUpdateMutationHookResult = ReturnType<
+  typeof useTaskUpdateMutation
+>;
+export type TaskUpdateMutationResult =
+  Apollo.MutationResult<Types.TaskUpdateMutation>;
+export type TaskUpdateMutationOptions = Apollo.BaseMutationOptions<
+  Types.TaskUpdateMutation,
+  Types.TaskUpdateMutationVariables
+>;

@@ -311,3 +311,32 @@ export type TaskCreateMutation = {
     };
   };
 };
+
+export type TaskUpdateMutationVariables = Exact<{
+  taskId: Scalars["UUID"]["input"];
+  input: TaskUpdateInput;
+}>;
+
+export type TaskUpdateMutation = {
+  __typename?: "Mutation";
+  taskUpdate: {
+    __typename?: "Task";
+    updatedAt: string;
+    name: string;
+    isCompleted: boolean;
+    id: string;
+    description?: string | null;
+    createdAt: string;
+    categoryId: string;
+    category: {
+      __typename?: "CategorySingleResult";
+      data?: {
+        __typename?: "Category";
+        id: string;
+        name: string;
+        updatedAt: string;
+        createdAt: string;
+      } | null;
+    };
+  };
+};
