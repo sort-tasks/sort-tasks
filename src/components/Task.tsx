@@ -48,10 +48,10 @@ export const Task = ({ index, task }: TaskProps) => {
   return (
     <div
       className={clsx(
-        'border-y  pl-2 pr-4 p-2 flex space-x-2 items-center  hover:bg-gray-100 hover:bg-opacity-10 active:bg-gray-500 active:bg-opacity-10 sm:rounded-md sm:border-x',
+        'flex  items-center space-x-2 border-y p-2 pl-2 pr-4  hover:bg-gray-100 hover:bg-opacity-10 active:bg-gray-500 active:bg-opacity-10 sm:rounded-md sm:border-x',
         {
-          'bg-gray-400 bg-opacity-10 border-gray-700': !task.isCompleted,
-          'bg-gray-400 bg-opacity-5 border-gray-800 text-opacity-50': task.isCompleted,
+          'border-gray-700 bg-gray-400 bg-opacity-10': !task.isCompleted,
+          'border-gray-800 bg-gray-400 bg-opacity-5 text-opacity-50': task.isCompleted,
         },
       )}
       role="button"
@@ -62,11 +62,11 @@ export const Task = ({ index, task }: TaskProps) => {
       <button
         type="button"
         onClick={handleToggleButtonClicked}
-        className="rounded-full w-10 h-10 inline-flex items-center justify-center hover:cursor-pointer hover:bg-gray-100 hover:bg-opacity-10 active:bg-gray-500 active:bg-opacity-10"
+        className="inline-flex h-10 w-10 items-center justify-center rounded-full hover:cursor-pointer hover:bg-gray-100 hover:bg-opacity-10 active:bg-gray-500 active:bg-opacity-10"
       >
         {task.isCompleted ? <IconCheckSquare /> : <IconSquare />}
       </button>
-      <div className="text-opacity-50 text-white text-2xl w-10 flex justify-center  border-x border-stone-700">
+      <div className="flex w-10 justify-center border-x border-stone-700 text-2xl  text-white text-opacity-50">
         {index}
       </div>
       <div className="flex-grow">
@@ -78,7 +78,7 @@ export const Task = ({ index, task }: TaskProps) => {
           {task.title}
         </h3>
         <p
-          className={clsx('text-sm text-opacity-50 text-white space-x-1', {
+          className={clsx('space-x-1 text-sm text-white text-opacity-50', {
             'text-opacity-50': !task.isCompleted,
             'text-opacity-30': task.isCompleted,
           })}

@@ -4,7 +4,7 @@ export const Select = (props: SelectProps) => {
   return (
     <select
       {...props}
-      className={`border px-4 py-2 rounded-lg  text-black  outline-purple-500 border-gray-900 outline-1 w-full ${
+      className={`w-full rounded-lg border border-gray-900  px-4  py-2 text-black outline-1 outline-purple-500 ${
         props.className ? ' ' + props.className : ''
       }`}
     />

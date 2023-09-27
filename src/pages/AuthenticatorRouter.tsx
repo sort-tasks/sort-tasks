@@ -81,9 +81,9 @@ export const AuthenticatorRouter = ({ children }: { children: React.ReactNode })
 
   if (checkingAuthenticator) {
     return (
-      <main className="max-w-screen-sm mx-auto">
-        <div className="h-screen flex items-center justify-center">
-          <h1 className="text-5xl animate-pulse">loading...</h1>
+      <main className="mx-auto max-w-screen-sm">
+        <div className="flex h-screen items-center justify-center">
+          <h1 className="animate-pulse text-5xl">loading...</h1>
         </div>
       </main>
     );
@@ -93,7 +93,7 @@ export const AuthenticatorRouter = ({ children }: { children: React.ReactNode })
     return (
       <>
         <header className=" bg-gray-100 bg-opacity-10">
-          <div className="max-w-screen-sm mx-auto py-4 mb-4 flex justify-between">
+          <div className="mx-auto mb-4 flex max-w-screen-sm justify-between py-4">
             <h1 className="text-xl font-bold">Sort Tasks</h1>
             <h2 className="text-base font-bold">Hello, {user.firstName} 👋</h2>
           </div>
@@ -104,16 +104,16 @@ export const AuthenticatorRouter = ({ children }: { children: React.ReactNode })
   }
 
   return (
-    <main className="max-w-screen-sm mx-auto">
+    <main className="mx-auto max-w-screen-sm">
       <div className="flex space-x-8 pt-36">
-        <div className="border-y border-gray-700 px-6 py-8  bg-gray-400   bg-opacity-10  sm:rounded-xl sm:border-x w-1/2">
-          <h2 className="text-xl font-bold my-2 sm:bg-transparent bg-gray-500 bg-opacity-10  text-center mb-6">
+        <div className="w-1/2 border-y border-gray-700 bg-gray-400  bg-opacity-10   px-6  py-8 sm:rounded-xl sm:border-x">
+          <h2 className="my-2 mb-6 bg-gray-500 bg-opacity-10 text-center text-xl  font-bold sm:bg-transparent">
             Login
           </h2>
           <Login onSubmit={handleLogin} />
         </div>
-        <div className="border-y border-gray-700 px-6 py-8   bg-gray-400   bg-opacity-10  sm:rounded-xl sm:border-x  w-1/2">
-          <h2 className="text-xl font-bold  sm:bg-transparent bg-gray-500 bg-opacity-10 text-center  mb-6">Register</h2>
+        <div className="w-1/2 border-y border-gray-700 bg-gray-400   bg-opacity-10   px-6  py-8 sm:rounded-xl  sm:border-x">
+          <h2 className="mb-6 bg-gray-500  bg-opacity-10 text-center text-xl font-bold  sm:bg-transparent">Register</h2>
           <Register onSubmit={handleRegister} />
         </div>
       </div>

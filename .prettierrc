@@ -1,8 +1,9 @@
 {
   "printWidth": 120,
   "singleQuote": true,
-  "plugins": ["@trivago/prettier-plugin-sort-imports"],
+  "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
   "importOrder": ["^(components|generated-graphql|gql|pages|apolloClient|App|utils)(/.*|$)", "^[./]"],
   "importOrderSeparation": true,
-  "importOrderSortSpecifiers": true
+  "importOrderSortSpecifiers": true,
+  "tailwindFunctions": ["clsx"]
 }

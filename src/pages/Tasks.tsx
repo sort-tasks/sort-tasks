@@ -36,15 +36,15 @@ export default function Tasks() {
   };
 
   return (
-    <main className="max-w-screen-sm mx-auto">
+    <main className="mx-auto max-w-screen-sm">
       {error?.message && <p className="text-red-500">{error.message}</p>}
 
       <CreateNewTask onSubmit={handleSubmit} />
-      <div className="border-y border-dashed border-gray-700 py-2 mb-2 flex justify-end px-2">
-        <label className="text-sm text-white text-opacity-50 space-x-1 inline-flex items-center cursor-pointer">
+      <div className="mb-2 flex justify-end border-y border-dashed border-gray-700 px-2 py-2">
+        <label className="inline-flex cursor-pointer items-center space-x-1 text-sm text-white text-opacity-50">
           <input
             type="checkbox"
-            className="w-5 h-5 border border-gray-300 rounded"
+            className="h-5 w-5 rounded border border-gray-300"
             checked={completedVisibility}
             onChange={handleCheckbox}
           />

@@ -42,7 +42,7 @@ export const CategorySelect = ({ onChange }: CategorySelectProps) => {
       {error?.message && <p className="text-red-500">{error.message}</p>}
       {!isFocused ? (
         <div
-          className="border px-4 py-2 rounded-lg bg-white h-[42px] text-black  outline-purple-500 border-gray-900 outline-1 w-full"
+          className="h-[42px] w-full rounded-lg border border-gray-900 bg-white px-4  py-2 text-black outline-1 outline-purple-500"
           role="search"
           onClick={handleOnFocus}
         >
@@ -64,14 +64,14 @@ export const CategorySelect = ({ onChange }: CategorySelectProps) => {
         })}
       >
         {loading && <p>Loading...</p>}
-        <div className="absolute top-full bg-[#423847] py-4 rounded-lg  shadow-black shadow-xl mt-2">
+        <div className="absolute top-full mt-2 rounded-lg bg-[#423847]  py-4 shadow-xl shadow-black">
           {!loading && categoryFilteredByTerm.length === 0 && <p className="px-4 py-2">No categories found.</p>}
           {categoryFilteredByTerm.map((category) => (
             <button
               key={category.id}
               type="button"
               onClick={handleCategorySelect(category)}
-              className="px-4 py-2 w-full text-left bg-transparent hover:bg-black hover:bg-opacity-10"
+              className="w-full bg-transparent px-4 py-2 text-left hover:bg-black hover:bg-opacity-10"
             >
               {category.name}
             </button>
