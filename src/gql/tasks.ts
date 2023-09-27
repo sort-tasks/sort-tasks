@@ -8,6 +8,7 @@ const TaskFragment = gql`
     id
     description
     createdAt
+    dueAt
     completedAt
     categoryId
     category {

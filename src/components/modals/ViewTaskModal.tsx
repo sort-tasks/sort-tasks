@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Modal from 'react-modal';
 import { toast } from 'react-toastify';
 
+import { DateTimePicker } from 'components/DateTimePicker';
 import { Button } from 'components/form/Button';
 import { CategorySelect } from 'components/form/CategorySelect';
 import { IconCheckSquare, IconSquare } from 'components/icons';
@@ -25,6 +26,7 @@ export const ViewTaskModal = ({ isOpen, onClose, onTaskUpdate, task }: ViewTaskM
     description: task.description ?? '',
     categoryId: task.categoryId,
     isCompleted: task.isCompleted,
+    dueAt: task.dueAt ?? '',
   });
 
   const [updateTask, { loading }] = useTaskUpdateMutation();
@@ -91,6 +93,20 @@ export const ViewTaskModal = ({ isOpen, onClose, onTaskUpdate, task }: ViewTaskM
     });
   };
 
+  const handleDueDateTime = async (date: Date | null) => {
+    setForm({
+      ...form,
+      dueAt: date ? date.toISOString() : '',
+    });
+
+    await requestUpdateTask({
+      title: form.title,
+      categoryId: form.categoryId,
+      isCompleted: form.isCompleted,
+      dueAt: date ? date.toISOString() : null,
+    });
+  };
+
   const inputClassName = clsx(
     'inline-flex rounded  border border-transparent bg-transparent px-2 py-1  text-white outline-none hover:border-gray-800 hover:bg-gray-800 focus:border-gray-600 focus:bg-gray-700',
   );
@@ -148,7 +164,13 @@ export const ViewTaskModal = ({ isOpen, onClose, onTaskUpdate, task }: ViewTaskM
                 )}
               </Button>
             </div>
+            <div className="mb-2 text-black">
+              <p className="mb-2 text-gray-400">due at:</p>
+              <DateTimePicker value={form.dueAt ? new Date(form.dueAt) : null} onChange={handleDueDateTime} />
+            </div>
             <div className="mb-2">
+              <p className="mb-2 text-gray-400">category:</p>
+
               <CategorySelect
                 defaultValue={task.category?.data?.name}
                 onChange={handleChangeCategory}

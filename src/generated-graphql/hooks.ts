@@ -20,6 +20,7 @@ export const TaskFragmentDoc = gql`
   id
   description
   createdAt
+  dueAt
   completedAt
   categoryId
   category {

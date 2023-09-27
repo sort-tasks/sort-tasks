@@ -85,13 +85,17 @@ export const Task = ({ index, task, onSelect }: TaskProps) => {
           })}
         >
           <span>{task.category.data?.name}</span>
-          <span className="text-white text-opacity-20">-</span>
-          <span
-            className="text-white text-opacity-30"
-            title={DateTime.fromISO(task.createdAt).toLocaleString(DateTime.DATETIME_SHORT)}
-          >
-            {durationToNow(task.createdAt)} late
-          </span>
+          {task.dueAt && (
+            <>
+              <span className="text-white text-opacity-20">-</span>
+              <span
+                className="text-white text-opacity-30"
+                title={DateTime.fromISO(task.dueAt).toLocaleString(DateTime.DATETIME_SHORT)}
+              >
+                {durationToNow(task.dueAt)} late
+              </span>
+            </>
+          )}
         </p>
       </div>
       <div

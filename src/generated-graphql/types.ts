@@ -140,6 +140,7 @@ export type Task = {
   completedAt?: Maybe<Scalars['DateTime']['output']>;
   createdAt: Scalars['DateTime']['output'];
   description?: Maybe<Scalars['String']['output']>;
+  dueAt?: Maybe<Scalars['DateTime']['output']>;
   id: Scalars['UUID']['output'];
   isCompleted: Scalars['Boolean']['output'];
   title: Scalars['String']['output'];
@@ -150,6 +151,7 @@ export type TaskCreateInput = {
   categoryId: Scalars['UUID']['input'];
   completedAt?: InputMaybe<Scalars['DateTime']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  dueAt?: InputMaybe<Scalars['DateTime']['input']>;
   isCompleted?: InputMaybe<Scalars['Boolean']['input']>;
   title: Scalars['String']['input'];
 };
@@ -164,6 +166,7 @@ export type TaskUpdateInput = {
   categoryId: Scalars['UUID']['input'];
   completedAt?: InputMaybe<Scalars['DateTime']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  dueAt?: InputMaybe<Scalars['DateTime']['input']>;
   isCompleted?: InputMaybe<Scalars['Boolean']['input']>;
   title: Scalars['String']['input'];
 };
@@ -206,19 +209,19 @@ export type FindManyCategoryQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type FindManyCategoryQuery = { __typename?: 'Query', findManyCategory: { __typename?: 'CategoryListResult', pagination: { __typename?: 'Pagination', totalItems?: number | null }, data?: Array<{ __typename?: 'Category', createdAt: string, id: string, name: string, ordering: number, updatedAt: string }> | null } };
 
-export type TaskFragment = { __typename?: 'Task', updatedAt: string, title: string, isCompleted: boolean, id: string, description?: string | null, createdAt: string, completedAt?: string | null, categoryId: string, category: { __typename?: 'CategorySingleResult', data?: { __typename?: 'Category', id: string, name: string, ordering: number, updatedAt: string, createdAt: string } | null } };
+export type TaskFragment = { __typename?: 'Task', updatedAt: string, title: string, isCompleted: boolean, id: string, description?: string | null, createdAt: string, dueAt?: string | null, completedAt?: string | null, categoryId: string, category: { __typename?: 'CategorySingleResult', data?: { __typename?: 'Category', id: string, name: string, ordering: number, updatedAt: string, createdAt: string } | null } };
 
 export type FindManyTaskQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FindManyTaskQuery = { __typename?: 'Query', findManyTask: { __typename?: 'TaskListResult', pagination: { __typename?: 'Pagination', totalItems?: number | null }, data?: Array<{ __typename?: 'Task', updatedAt: string, title: string, isCompleted: boolean, id: string, description?: string | null, createdAt: string, completedAt?: string | null, categoryId: string, category: { __typename?: 'CategorySingleResult', data?: { __typename?: 'Category', id: string, name: string, ordering: number, updatedAt: string, createdAt: string } | null } }> | null } };
+export type FindManyTaskQuery = { __typename?: 'Query', findManyTask: { __typename?: 'TaskListResult', pagination: { __typename?: 'Pagination', totalItems?: number | null }, data?: Array<{ __typename?: 'Task', updatedAt: string, title: string, isCompleted: boolean, id: string, description?: string | null, createdAt: string, dueAt?: string | null, completedAt?: string | null, categoryId: string, category: { __typename?: 'CategorySingleResult', data?: { __typename?: 'Category', id: string, name: string, ordering: number, updatedAt: string, createdAt: string } | null } }> | null } };
 
 export type TaskCreateMutationVariables = Exact<{
   input: TaskCreateInput;
 }>;
 
 
-export type TaskCreateMutation = { __typename?: 'Mutation', taskCreate: { __typename?: 'Task', updatedAt: string, title: string, isCompleted: boolean, id: string, description?: string | null, createdAt: string, completedAt?: string | null, categoryId: string, category: { __typename?: 'CategorySingleResult', data?: { __typename?: 'Category', id: string, name: string, ordering: number, updatedAt: string, createdAt: string } | null } } };
+export type TaskCreateMutation = { __typename?: 'Mutation', taskCreate: { __typename?: 'Task', updatedAt: string, title: string, isCompleted: boolean, id: string, description?: string | null, createdAt: string, dueAt?: string | null, completedAt?: string | null, categoryId: string, category: { __typename?: 'CategorySingleResult', data?: { __typename?: 'Category', id: string, name: string, ordering: number, updatedAt: string, createdAt: string } | null } } };
 
 export type TaskUpdateMutationVariables = Exact<{
   taskId: Scalars['UUID']['input'];
@@ -226,9 +229,9 @@ export type TaskUpdateMutationVariables = Exact<{
 }>;
 
 
-export type TaskUpdateMutation = { __typename?: 'Mutation', taskUpdate: { __typename?: 'Task', updatedAt: string, title: string, isCompleted: boolean, id: string, description?: string | null, createdAt: string, completedAt?: string | null, categoryId: string, category: { __typename?: 'CategorySingleResult', data?: { __typename?: 'Category', id: string, name: string, ordering: number, updatedAt: string, createdAt: string } | null } } };
+export type TaskUpdateMutation = { __typename?: 'Mutation', taskUpdate: { __typename?: 'Task', updatedAt: string, title: string, isCompleted: boolean, id: string, description?: string | null, createdAt: string, dueAt?: string | null, completedAt?: string | null, categoryId: string, category: { __typename?: 'CategorySingleResult', data?: { __typename?: 'Category', id: string, name: string, ordering: number, updatedAt: string, createdAt: string } | null } } };
 
 export type OrderedTasksByCategoryQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type OrderedTasksByCategoryQuery = { __typename?: 'Query', orderedTasksByCategory: { __typename?: 'TaskListResult', pagination: { __typename?: 'Pagination', totalItems?: number | null }, data?: Array<{ __typename?: 'Task', updatedAt: string, title: string, isCompleted: boolean, id: string, description?: string | null, createdAt: string, completedAt?: string | null, categoryId: string, category: { __typename?: 'CategorySingleResult', data?: { __typename?: 'Category', id: string, name: string, ordering: number, updatedAt: string, createdAt: string } | null } }> | null } };
+export type OrderedTasksByCategoryQuery = { __typename?: 'Query', orderedTasksByCategory: { __typename?: 'TaskListResult', pagination: { __typename?: 'Pagination', totalItems?: number | null }, data?: Array<{ __typename?: 'Task', updatedAt: string, title: string, isCompleted: boolean, id: string, description?: string | null, createdAt: string, dueAt?: string | null, completedAt?: string | null, categoryId: string, category: { __typename?: 'CategorySingleResult', data?: { __typename?: 'Category', id: string, name: string, ordering: number, updatedAt: string, createdAt: string } | null } }> | null } };
