@@ -54,7 +54,7 @@ export default function Tasks() {
   };
 
   return (
-    <main className="mx-auto max-w-screen-sm">
+    <main className="mx-auto max-w-screen-sm pb-8">
       {error?.message && <p className="text-red-500">{error.message}</p>}
 
       <CreateNewTask onSubmit={handleSubmit} />

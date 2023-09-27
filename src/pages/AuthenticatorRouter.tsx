@@ -92,8 +92,8 @@ export const AuthenticatorRouter = ({ children }: { children: React.ReactNode })
   if (isLogged && user) {
     return (
       <>
-        <header className=" bg-gray-100 bg-opacity-10">
-          <div className="mx-auto mb-4 flex max-w-screen-sm justify-between py-4">
+        <header className="mb-4 bg-gray-100 bg-opacity-10">
+          <div className="mx-auto flex max-w-screen-sm justify-between py-4">
             <h1 className="text-xl font-bold">Sort Tasks</h1>
             <h2 className="text-base font-bold">Hello, {user.firstName} 👋</h2>
           </div>
