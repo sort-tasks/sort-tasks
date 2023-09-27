@@ -6,12 +6,14 @@ import { useFindManyCategoryQuery } from 'generated-graphql/hooks';
 import * as Types from 'generated-graphql/types';
 
 type CategorySelectProps = {
+  disabled?: boolean;
+  defaultValue?: string;
   onChange: (categoryId: string) => void;
 };
 
-export const CategorySelect = ({ onChange }: CategorySelectProps) => {
+export const CategorySelect = ({ defaultValue, onChange, disabled }: CategorySelectProps) => {
   const [isFocused, setIsFocused] = useState(false);
-  const [categoryTerm, setCategoryTerm] = useState('');
+  const [categoryTerm, setCategoryTerm] = useState(defaultValue ?? '');
 
   const { data, loading, error } = useFindManyCategoryQuery();
 
@@ -54,6 +56,7 @@ export const CategorySelect = ({ onChange }: CategorySelectProps) => {
           placeholder="Select a category"
           defaultValue=""
           onChange={handleCategoryTermChange}
+          disabled={disabled}
           autoFocus
         />
       )}

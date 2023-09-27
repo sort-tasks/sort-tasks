@@ -3,12 +3,16 @@ import { toast } from 'react-toastify';
 
 import { Task } from 'components/Task';
 import { CreateNewTask } from 'components/form/CreateNewTask';
+import { ViewTaskModal } from 'components/modals/ViewTaskModal';
 import { useOrderedTasksByCategoryQuery, useTaskCreateMutation } from 'generated-graphql/hooks';
+import * as Types from 'generated-graphql/types';
 
 export default function Tasks() {
   const { data, loading, error, refetch } = useOrderedTasksByCategoryQuery();
   const [createTask] = useTaskCreateMutation();
   const [completedVisibility, setCompletedVisibility] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [taskSelected, setTaskSelected] = useState<Types.TaskFragment | null>(null);
 
   const tasks = data?.orderedTasksByCategory?.data ?? [];
   const tasksFiltered = tasks.filter((task) => completedVisibility || !task.isCompleted);
@@ -31,8 +35,22 @@ export default function Tasks() {
     }
   };
 
+  const handleTaskUpdate = async () => {
+    await refetch();
+  };
+
   const handleCheckbox = () => {
     setCompletedVisibility(!completedVisibility);
+  };
+
+  const handleTaskSelected = (task: Types.TaskFragment) => {
+    setIsModalOpen(true);
+    setTaskSelected(task);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setTaskSelected(null);
   };
 
   return (
@@ -56,9 +74,17 @@ export default function Tasks() {
       {!loading && tasksFiltered.length === 0 && <p>No tasks found.</p>}
       <div className="space-y-2">
         {tasksFiltered.map((task, index) => (
-          <Task task={task} index={index + 1} key={task.id} />
+          <Task task={task} index={index + 1} key={task.id} onSelect={handleTaskSelected} />
         ))}
       </div>
+      {taskSelected && (
+        <ViewTaskModal
+          isOpen={isModalOpen}
+          task={taskSelected}
+          onClose={handleCloseModal}
+          onTaskUpdate={handleTaskUpdate}
+        />
+      )}
     </main>
   );
 }

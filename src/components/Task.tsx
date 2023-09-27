@@ -5,15 +5,16 @@ import { toast } from 'react-toastify';
 
 import { IconCheckSquare, IconPencilSquare, IconSquare } from 'components/icons';
 import { useTaskUpdateMutation } from 'generated-graphql/hooks';
-import { TaskFragment } from 'generated-graphql/types';
+import * as Types from 'generated-graphql/types';
 import { durationToNow } from 'utils/duration';
 
 type TaskProps = {
   index: number;
-  task: TaskFragment;
+  task: Types.TaskFragment;
+  onSelect: (task: Types.TaskFragment) => void;
 };
 
-export const Task = ({ index, task }: TaskProps) => {
+export const Task = ({ index, task, onSelect }: TaskProps) => {
   const [updateTask] = useTaskUpdateMutation();
   const [isHovered, setIsHovered] = useState(false);
 
@@ -42,7 +43,7 @@ export const Task = ({ index, task }: TaskProps) => {
   };
 
   const handleCardClicked = () => {
-    // alert('card clicked');
+    onSelect(task);
   };
 
   return (
@@ -89,7 +90,7 @@ export const Task = ({ index, task }: TaskProps) => {
             className="text-white text-opacity-30"
             title={DateTime.fromISO(task.createdAt).toLocaleString(DateTime.DATETIME_SHORT)}
           >
-            {durationToNow(task.createdAt)}
+            {durationToNow(task.createdAt)} late
           </span>
         </p>
       </div>
