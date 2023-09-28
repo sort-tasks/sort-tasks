@@ -78,6 +78,7 @@ export const ViewTaskModal = ({ isOpen, onClose, onTaskUpdate, task }: ViewTaskM
     });
     await requestUpdateTask({
       isCompleted,
+      completedAt: isCompleted ? DateTime.now().toISO() : null,
     });
   };
 
@@ -161,7 +162,9 @@ export const ViewTaskModal = ({ isOpen, onClose, onTaskUpdate, task }: ViewTaskM
               </Button>
             </div>
             <div className="mb-2 text-black">
-              <p className="mb-2 text-gray-400">due at:</p>
+              <p className="mb-2 cursor-help text-gray-400 underline" title={task.dueAt ? task.dueAt : undefined}>
+                due at:
+              </p>
               <DateTimePicker value={form.dueAt ? new Date(form.dueAt) : null} onChange={handleDueDateTime} />
             </div>
             <div className="mb-2">
@@ -181,21 +184,21 @@ export const ViewTaskModal = ({ isOpen, onClose, onTaskUpdate, task }: ViewTaskM
             <p className="mb-2 inline-flex space-x-2">
               <span className="text-gray-400">created at:</span>
 
-              <span className="font-bold">
+              <span className="cursor-help font-bold underline" title={task.createdAt ? task.createdAt : undefined}>
                 {DateTime.fromISO(task.createdAt).toLocaleString(DateTime.DATETIME_SHORT)}
               </span>
             </p>
             <p className="mb-2 inline-flex space-x-2">
               <span className="text-gray-400">updated at:</span>
 
-              <span className="font-bold">
+              <span className="cursor-help font-bold underline" title={task.updatedAt ? task.updatedAt : undefined}>
                 {DateTime.fromISO(task.updatedAt).toLocaleString(DateTime.DATETIME_SHORT)}
               </span>
             </p>
             <p className="mb-2 inline-flex space-x-2">
               <span className="text-gray-400">completed at:</span>
 
-              <span className="font-bold">
+              <span className="cursor-help font-bold underline" title={task.completedAt ? task.completedAt : undefined}>
                 {task.completedAt ? DateTime.fromISO(task.completedAt).toLocaleString(DateTime.DATETIME_SHORT) : 'N/A'}
               </span>
             </p>
