@@ -38,12 +38,19 @@ export const ViewTaskModal = ({ isOpen, onClose, onTaskUpdate, task }: ViewTaskM
     }));
   };
 
-  const requestUpdateTask = async (input: Types.TaskUpdateInput) => {
+  const requestUpdateTask = async (input: Partial<Types.TaskUpdateInput>) => {
     try {
       await updateTask({
         variables: {
           taskId: task.id,
-          input,
+          input: {
+            title: form.title,
+            categoryId: form.categoryId,
+            description: form.description,
+            isCompleted: form.isCompleted,
+            dueAt: form.dueAt ? form.dueAt : null,
+            ...input,
+          },
         },
       });
       if (onTaskUpdate) {
@@ -60,11 +67,7 @@ export const ViewTaskModal = ({ isOpen, onClose, onTaskUpdate, task }: ViewTaskM
   };
 
   const handleTaskUpdate = async () => {
-    await requestUpdateTask({
-      title: form.title,
-      categoryId: form.categoryId,
-      isCompleted: form.isCompleted,
-    });
+    await requestUpdateTask({});
   };
 
   const handleToggleCompleteTaskUpdate = async () => {
@@ -74,8 +77,6 @@ export const ViewTaskModal = ({ isOpen, onClose, onTaskUpdate, task }: ViewTaskM
       isCompleted,
     });
     await requestUpdateTask({
-      title: form.title,
-      categoryId: form.categoryId,
       isCompleted,
     });
   };
@@ -87,9 +88,7 @@ export const ViewTaskModal = ({ isOpen, onClose, onTaskUpdate, task }: ViewTaskM
     });
 
     await requestUpdateTask({
-      title: form.title,
       categoryId: categoryId,
-      isCompleted: form.isCompleted,
     });
   };
 
@@ -100,9 +99,6 @@ export const ViewTaskModal = ({ isOpen, onClose, onTaskUpdate, task }: ViewTaskM
     });
 
     await requestUpdateTask({
-      title: form.title,
-      categoryId: form.categoryId,
-      isCompleted: form.isCompleted,
       dueAt: date ? date.toISOString() : null,
     });
   };
