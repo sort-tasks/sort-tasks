@@ -165,16 +165,16 @@ export const ViewTaskModal = ({ isOpen, onClose, onTaskUpdate, task }: ViewTaskM
               <p className="mb-2 cursor-help text-gray-400 underline" title={task.dueAt ? task.dueAt : undefined}>
                 due at:
               </p>
-              <DateTimePicker value={form.dueAt ? new Date(form.dueAt) : null} onChange={handleDueDateTime} />
+              <DateTimePicker
+                value={form.dueAt ? new Date(form.dueAt) : null}
+                onChange={handleDueDateTime}
+                disabled={loading}
+              />
             </div>
             <div className="mb-2">
               <p className="mb-2 text-gray-400">category:</p>
 
-              <CategorySelect
-                defaultValue={task.category?.data?.name}
-                onChange={handleChangeCategory}
-                disabled={loading}
-              />
+              <CategorySelect categoryId={task.categoryId} onChange={handleChangeCategory} disabled={loading} />
             </div>
             <p className="mb-2 inline-flex space-x-2">
               <span className="text-gray-400">Category ordering:</span>

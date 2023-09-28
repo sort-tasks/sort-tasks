@@ -1,86 +1,102 @@
 import clsx from 'clsx';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { Input } from 'components/form/Input';
+import { PopperOverMenu } from 'components/PopperOverMenu';
+import { inputClass } from 'components/form/Input';
 import { useFindManyCategoryQuery } from 'generated-graphql/hooks';
 import * as Types from 'generated-graphql/types';
 
 type CategorySelectProps = {
   disabled?: boolean;
-  defaultValue?: string;
+  categoryId?: string;
   onChange: (categoryId: string) => void;
 };
 
-export const CategorySelect = ({ defaultValue, onChange, disabled }: CategorySelectProps) => {
+export const CategorySelect = ({ categoryId, onChange, disabled }: CategorySelectProps) => {
   const [isFocused, setIsFocused] = useState(false);
-  const [categoryTerm, setCategoryTerm] = useState(defaultValue ?? '');
+  const [categoryTerm, setCategoryTerm] = useState('');
 
   const { data, loading, error } = useFindManyCategoryQuery();
 
-  const handleCategoryTermChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setCategoryTerm(event.target.value);
-  };
-
   const categories = data?.findManyCategory?.data ?? [];
+
+  useEffect(() => {
+    if (categoryId && data?.findManyCategory?.data?.length) {
+      const category = data.findManyCategory.data.find((category) => category.id === categoryId);
+
+      if (category) {
+        setCategoryTerm(category.name);
+      }
+    }
+  }, [categoryId, data?.findManyCategory?.data, setCategoryTerm]);
 
   const categoryFilteredByTerm = categories.filter((category) => {
     const nameRegex = new RegExp(categoryTerm, 'i');
-    return nameRegex.test(category.name);
+    return nameRegex.test(category.name) || nameRegex.test(category.ordering.toString());
   });
 
   const handleOnFocus = () => {
     setIsFocused(true);
     setCategoryTerm('');
+    onChange('');
   };
 
   const handleCategorySelect = (category: Types.CategoryFragment) => () => {
     setCategoryTerm(category.name);
+
     onChange(category.id);
     setIsFocused(false);
   };
 
+  const handleClickOutside = () => {
+    setIsFocused(false);
+
+    // if (categoryId && data?.findManyCategory?.data?.length) {
+    //   const category = data.findManyCategory.data.find((category) => category.id === categoryId);
+
+    //   if (category) {
+    //     setCategoryTerm(category.name);
+    //   }
+    // }
+  };
+
+  const Menu = (
+    <div
+      className={clsx('w-56', {
+        hidden: !isFocused,
+        block: isFocused,
+      })}
+    >
+      {loading && <p>Loading...</p>}
+      <div className="absolute top-full mt-2 rounded-lg bg-[#423847]  py-4 shadow-xl shadow-black">
+        {!loading && categoryFilteredByTerm.length === 0 && <p className="px-4 py-2">No categories found.</p>}
+        {categoryFilteredByTerm.map((category) => (
+          <button
+            key={category.id}
+            type="button"
+            onClick={handleCategorySelect(category)}
+            className="w-full bg-transparent px-4 py-2 text-left hover:bg-black hover:bg-opacity-10"
+          >
+            <span className="text-white text-opacity-50">{category.ordering} / </span> <span>{category.name}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+
   return (
     <div className="relative">
       {error?.message && <p className="text-red-500">{error.message}</p>}
-      {!isFocused ? (
-        <div
-          className="h-[42px] w-full rounded-lg border border-gray-900 bg-white px-4  py-2 text-black outline-1 outline-purple-500"
-          role="search"
-          onClick={handleOnFocus}
-        >
-          {!categoryTerm ? <p className="text-gray-500">Select a category</p> : categoryTerm}
-        </div>
-      ) : (
-        <Input
-          type="text"
-          placeholder="Select a category"
-          defaultValue=""
-          onChange={handleCategoryTermChange}
+      <PopperOverMenu dropdown={Menu} onClickOutside={handleClickOutside}>
+        <input
+          className={clsx(inputClass, 'h-[42px]')}
           disabled={disabled}
-          autoFocus
+          onFocus={handleOnFocus}
+          value={categoryTerm}
+          onChange={(e) => setCategoryTerm(e.target.value)}
+          placeholder="Select a category"
         />
-      )}
-      <div
-        className={clsx({
-          hidden: !isFocused,
-          block: isFocused,
-        })}
-      >
-        {loading && <p>Loading...</p>}
-        <div className="absolute top-full mt-2 rounded-lg bg-[#423847]  py-4 shadow-xl shadow-black">
-          {!loading && categoryFilteredByTerm.length === 0 && <p className="px-4 py-2">No categories found.</p>}
-          {categoryFilteredByTerm.map((category) => (
-            <button
-              key={category.id}
-              type="button"
-              onClick={handleCategorySelect(category)}
-              className="w-full bg-transparent px-4 py-2 text-left hover:bg-black hover:bg-opacity-10"
-            >
-              {category.name}
-            </button>
-          ))}
-        </div>
-      </div>
+      </PopperOverMenu>
     </div>
   );
 };

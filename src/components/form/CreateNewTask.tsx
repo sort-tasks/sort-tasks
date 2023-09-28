@@ -24,6 +24,7 @@ export const CreateNewTask = ({ onSubmit }: CreateNewTaskProps) => {
   };
 
   const handleCategoryChange = (categoryId: string) => {
+    console.log(categoryId);
     setForm({
       ...form,
       categoryId,
@@ -41,11 +42,13 @@ export const CreateNewTask = ({ onSubmit }: CreateNewTaskProps) => {
     setSubmitting(true);
     await onSubmit(form);
     setForm({
+      ...form,
       title: '',
-      categoryId: '',
     });
     setSubmitting(false);
   };
+
+  console.log(form.categoryId);
 
   return (
     <form onSubmit={handleSubmit} className="py-8">
@@ -57,10 +60,11 @@ export const CreateNewTask = ({ onSubmit }: CreateNewTaskProps) => {
             placeholder="write your task here"
             value={form.title}
             onChange={handleChange}
+            disabled={submitting}
           />
         </div>
         <div className="w-44">
-          <CategorySelect onChange={handleCategoryChange} />
+          <CategorySelect categoryId={form.categoryId} onChange={handleCategoryChange} disabled={submitting} />
         </div>
 
         <Button type="submit" disabled={submitting}>

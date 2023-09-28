@@ -7,9 +7,10 @@ import { Button } from './form/Button';
 type DateTimePickerProps = {
   value: Date | null;
   onChange: (date: Date | null) => void;
+  disabled?: boolean;
 };
 
-export const DateTimePicker = ({ onChange, value }: DateTimePickerProps) => {
+export const DateTimePicker = ({ onChange, value, disabled }: DateTimePickerProps) => {
   const [dueAt, setDueAt] = useState<Date | null>(value);
 
   useEffect(() => {
@@ -60,7 +61,7 @@ export const DateTimePicker = ({ onChange, value }: DateTimePickerProps) => {
       <DatePicker value={dueAt} onDateChange={handleDayChange} />
       <TimePicker defaultValue={dueAt} onTimeChange={handleTimeChange} />
       {dueAt !== null && (
-        <Button type="button" onClick={handleClean}>
+        <Button type="button" onClick={handleClean} disabled={disabled}>
           X
         </Button>
       )}
