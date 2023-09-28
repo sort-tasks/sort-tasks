@@ -48,13 +48,16 @@ export const Task = ({ index, task, onSelect }: TaskProps) => {
 
   const isDueAtExistsAndAtPassed = !!task.dueAt && DateTime.fromISO(task.dueAt) < DateTime.now();
 
+  const isLate = checkIsLate(task.dueAt);
+
   return (
     <div
       className={clsx(
-        'flex  items-center space-x-2 border-y p-2 pl-2 pr-4  hover:bg-gray-100 hover:bg-opacity-10 active:bg-gray-500 active:bg-opacity-10 sm:rounded-md sm:border-x',
+        'flex items-center space-x-2 border-y  bg-opacity-10 p-2 pl-2 pr-4 text-opacity-50 hover:bg-opacity-20 active:bg-opacity-30 sm:rounded-md sm:border-x',
         {
-          'border-gray-700 bg-gray-400 bg-opacity-10': !task.isCompleted,
-          'border-gray-800 bg-gray-400 bg-opacity-5 text-opacity-50': task.isCompleted,
+          'border-gray-700 bg-gray-400 ': !isLate && !task.isCompleted,
+          'border-red-800 bg-red-500': isLate && !task.isCompleted,
+          'border-green-800 bg-green-500 ': task.isCompleted,
         },
       )}
       role="button"
@@ -87,7 +90,7 @@ export const Task = ({ index, task, onSelect }: TaskProps) => {
           })}
         >
           <span>{task.category.data?.name}</span>
-          {isDueAtExistsAndAtPassed && !!task.dueAt && (
+          {isDueAtExistsAndAtPassed && !!task.dueAt && !task.isCompleted && (
             <>
               <span className="text-white text-opacity-20">-</span>
               <span
@@ -110,4 +113,8 @@ export const Task = ({ index, task, onSelect }: TaskProps) => {
       </div>
     </div>
   );
+};
+
+const checkIsLate = (dueAt?: string | null) => {
+  return !!dueAt && DateTime.fromISO(dueAt) < DateTime.now();
 };
