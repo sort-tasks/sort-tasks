@@ -46,6 +46,8 @@ export const Task = ({ index, task, onSelect }: TaskProps) => {
     onSelect(task);
   };
 
+  const isDueAtExistsAndAtPassed = !!task.dueAt && DateTime.fromISO(task.dueAt) < DateTime.now();
+
   return (
     <div
       className={clsx(
@@ -85,7 +87,7 @@ export const Task = ({ index, task, onSelect }: TaskProps) => {
           })}
         >
           <span>{task.category.data?.name}</span>
-          {task.dueAt && (
+          {isDueAtExistsAndAtPassed && !!task.dueAt && (
             <>
               <span className="text-white text-opacity-20">-</span>
               <span
