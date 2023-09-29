@@ -83,14 +83,16 @@ export const ViewTaskModal = ({ isOpen, onClose, onTaskUpdate, task }: ViewTaskM
   };
 
   const handleChangeCategory = async (categoryId: string) => {
-    setForm({
-      ...form,
-      categoryId,
-    });
+    if (categoryId) {
+      setForm({
+        ...form,
+        categoryId,
+      });
 
-    await requestUpdateTask({
-      categoryId: categoryId,
-    });
+      await requestUpdateTask({
+        categoryId: categoryId,
+      });
+    }
   };
 
   const handleDueDateTime = async (date: Date | null) => {

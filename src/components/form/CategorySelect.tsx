@@ -38,7 +38,6 @@ export const CategorySelect = ({ categoryId, onChange, disabled }: CategorySelec
   const handleOnFocus = () => {
     setIsFocused(true);
     setCategoryTerm('');
-    onChange('');
   };
 
   const handleCategorySelect = (category: Types.CategoryFragment) => () => {
@@ -51,13 +50,13 @@ export const CategorySelect = ({ categoryId, onChange, disabled }: CategorySelec
   const handleClickOutside = () => {
     setIsFocused(false);
 
-    // if (categoryId && data?.findManyCategory?.data?.length) {
-    //   const category = data.findManyCategory.data.find((category) => category.id === categoryId);
+    if (categoryId && data?.findManyCategory?.data?.length) {
+      const category = data.findManyCategory.data.find((category) => category.id === categoryId);
 
-    //   if (category) {
-    //     setCategoryTerm(category.name);
-    //   }
-    // }
+      if (category) {
+        setCategoryTerm(category.name);
+      }
+    }
   };
 
   const Menu = (
