@@ -1,9 +1,13 @@
 import { DateTime, Interval } from 'luxon';
 
 export function durationToNow(isoDateTime: string) {
-  const pastDateTime = DateTime.fromISO(isoDateTime);
+  const targetDateTime = DateTime.fromISO(isoDateTime);
   const currentDateTime = DateTime.now();
-  const interval = Interval.fromDateTimes(pastDateTime, currentDateTime);
+  const interval = Interval.fromDateTimes(
+    targetDateTime < currentDateTime ? targetDateTime : currentDateTime,
+    targetDateTime >= currentDateTime ? targetDateTime : currentDateTime,
+  );
+
   const duration = interval.toDuration(['months', 'weeks', 'days', 'hours', 'minutes']);
 
   const result: string[] = [];
@@ -28,5 +32,7 @@ export function durationToNow(isoDateTime: string) {
     result.push(`${duration.minutes.toFixed(0)} minute${parseInt(`${duration.minutes}`, 10) !== 1 ? 's' : ''}`);
   }
 
-  return result.slice(0, 2).join(' and ');
+  const formattedDuration = result.slice(0, 2).join(' and ');
+
+  return targetDateTime >= currentDateTime ? `due in ${formattedDuration}` : `${formattedDuration} late`;
 }

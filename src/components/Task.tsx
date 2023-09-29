@@ -90,14 +90,17 @@ export const Task = ({ index, task, onSelect }: TaskProps) => {
           })}
         >
           <span>{task.category.data?.name}</span>
-          {isDueAtExistsAndAtPassed && !!task.dueAt && !task.isCompleted && (
+          {!!task.dueAt && !task.isCompleted && (
             <>
               <span className="text-white text-opacity-20">-</span>
               <span
-                className="text-white text-opacity-30"
+                className={clsx('rounded  bg-opacity-10 px-2 text-white text-opacity-30', {
+                  'bg-orange-500': isDueAtExistsAndAtPassed,
+                  'bg-blue-500': !isDueAtExistsAndAtPassed,
+                })}
                 title={DateTime.fromISO(task.dueAt).toLocaleString(DateTime.DATETIME_SHORT)}
               >
-                {durationToNow(task.dueAt)} late
+                {durationToNow(task.dueAt)}
               </span>
             </>
           )}
