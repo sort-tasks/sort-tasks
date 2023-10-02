@@ -120,7 +120,7 @@ export const ViewTaskModal = ({ isOpen, onClose, onTaskUpdate, task }: ViewTaskM
             close
           </Button>
         </div>
-        <div className="mb-8 flex space-x-4 divide-x px-4">
+        <div className="mb-8 flex flex-col space-y-4 divide-y px-4  py-4 sm:flex-row sm:space-x-4 sm:space-y-0 sm:divide-x sm:divide-y-0 ">
           <div className="grow">
             <input
               type="text"
@@ -147,7 +147,7 @@ export const ViewTaskModal = ({ isOpen, onClose, onTaskUpdate, task }: ViewTaskM
               </textarea>
             </div>
           </div>
-          <div className="w-72 pl-4">
+          <div className="flex flex-col pt-4 sm:w-72 sm:pl-4 sm:pt-0">
             <div className="mb-4 border-b border-dashed border-gray-500 pb-4">
               <Button type="button" className="space-x-2" disabled={loading} onClick={handleToggleCompleteTaskUpdate}>
                 {form.isCompleted ? (
@@ -219,7 +219,9 @@ type ModalWrapperProps = {
 
 export const ModalWrapper = ({ children, isOpen, onRequestClose }: ModalWrapperProps) => {
   const overlayClassName = clsx('fixed inset-0 z-50 flex items-start justify-center bg-black bg-opacity-40');
-  const contentClassName = clsx('mt-20 w-full max-w-5xl  rounded border border-gray-700 bg-gray-900');
+  const contentClassName = clsx(
+    'mt-20 w-full max-w-screen-lg border-y  border-gray-700 bg-gray-900 md:mx-4 md:rounded-2xl md:border-x',
+  );
   return (
     <Modal
       isOpen={isOpen}
@@ -232,3 +234,5 @@ export const ModalWrapper = ({ children, isOpen, onRequestClose }: ModalWrapperP
     </Modal>
   );
 };
+
+//

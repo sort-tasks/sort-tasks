@@ -51,7 +51,7 @@ export const CreateNewTask = ({ onSubmit }: CreateNewTaskProps) => {
   console.log(form.categoryId);
 
   return (
-    <form onSubmit={handleSubmit} className="py-8">
+    <form onSubmit={handleSubmit} className="px-4 py-8">
       <div className="flex space-x-1">
         <div className="flex-1">
           <Input

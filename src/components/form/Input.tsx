@@ -9,3 +9,7 @@ export const inputClass = clsx(
 export const Input = (props: InputProps) => {
   return <input {...props} className={clsx(inputClass, props.className)} />;
 };
+
+export const InputGroup = ({ children }: { children: React.ReactNode }) => {
+  return <div className="mb-4">{children}</div>;
+};

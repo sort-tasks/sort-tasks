@@ -15,9 +15,7 @@ export const App = () => {
       <ApolloProvider client={client}>
         <ToastContainer />
         <AuthenticatorRouter>
-          <React.Fragment>
-            <Tasks />
-          </React.Fragment>
+          <Tasks />
         </AuthenticatorRouter>
       </ApolloProvider>
     </React.StrictMode>

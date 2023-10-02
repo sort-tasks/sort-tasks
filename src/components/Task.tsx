@@ -53,7 +53,7 @@ export const Task = ({ index, task, onSelect }: TaskProps) => {
   return (
     <div
       className={clsx(
-        'flex items-center space-x-2 border-y  bg-opacity-10 p-2 pl-2 pr-4 text-opacity-50 hover:bg-opacity-20 active:bg-opacity-30 sm:rounded-md sm:border-x',
+        'flex items-stretch space-x-2 border-y  bg-opacity-10 p-2 pl-2 pr-4 text-opacity-50 hover:bg-opacity-20 active:bg-opacity-30 sm:rounded-md sm:border-x',
         {
           'border-gray-700 bg-gray-400 ': !isLate && !task.isCompleted,
           'border-red-800 bg-red-500': isLate && !task.isCompleted,
@@ -65,36 +65,39 @@ export const Task = ({ index, task, onSelect }: TaskProps) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <button
-        type="button"
-        onClick={handleToggleButtonClicked}
-        className="inline-flex h-10 w-10 items-center justify-center rounded-full hover:cursor-pointer hover:bg-gray-100 hover:bg-opacity-10 active:bg-gray-500 active:bg-opacity-10"
-      >
-        {task.isCompleted ? <IconCheckSquare /> : <IconSquare />}
-      </button>
-      <div className="flex w-10 justify-center border-x border-stone-700 text-2xl  text-white text-opacity-50">
+      <div className="flex items-center justify-center">
+        <button
+          type="button"
+          onClick={handleToggleButtonClicked}
+          className="inline-flex h-10 w-10 shrink-0 basis-10 items-center justify-center rounded-full hover:cursor-pointer hover:bg-gray-100 hover:bg-opacity-10 active:bg-gray-500 active:bg-opacity-10"
+        >
+          {task.isCompleted ? <IconCheckSquare /> : <IconSquare />}
+        </button>
+      </div>
+
+      <div className="flex w-10 shrink-0  items-center justify-center  border-x border-stone-700 text-2xl  text-white text-opacity-50">
         {index}
       </div>
-      <div className="flex-grow">
+      <div className="shrink">
         <h3
-          className={clsx('w-full text-base text-white', {
+          className={clsx('text-base text-white', {
             'text-opacity-50': task.isCompleted,
           })}
         >
           {task.title}
         </h3>
         <p
-          className={clsx('space-x-1 text-sm text-white text-opacity-50', {
+          className={clsx('text-sm text-white text-opacity-50', {
             'text-opacity-50': !task.isCompleted,
             'text-opacity-30': task.isCompleted,
           })}
         >
-          <span>{task.category.data?.name}</span>
+          <span className="mr-1">{task.category.data?.name}</span>
           {!!task.dueAt && !task.isCompleted && (
             <>
-              <span className="text-white text-opacity-20">-</span>
+              <span className="mr-1 text-white text-opacity-20">-</span>
               <span
-                className={clsx('rounded  bg-opacity-10 px-2 text-white text-opacity-30', {
+                className={clsx('whitespace-nowrap rounded bg-opacity-10 px-2 text-white text-opacity-30', {
                   'bg-orange-500': isDueAtExistsAndAtPassed,
                   'bg-blue-500': !isDueAtExistsAndAtPassed,
                 })}
