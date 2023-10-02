@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { DateTimePicker } from 'components/DateTimePicker';
 import { Button } from 'components/form/Button';
 import { CategorySelect } from 'components/form/CategorySelect';
+import { DescriptionEdit } from 'components/form/DescriptionEdit';
 import { IconCheckSquare, IconSquare } from 'components/icons';
 import { useTaskUpdateMutation } from 'generated-graphql/hooks';
 import * as Types from 'generated-graphql/types';
@@ -35,6 +36,12 @@ export const ViewTaskModal = ({ isOpen, onClose, onTaskUpdate, task }: ViewTaskM
     setForm((prev) => ({
       ...prev,
       [event.target.name]: event.target.value,
+    }));
+  };
+  const handleFieldChange = (field: keyof typeof form) => (value: string) => {
+    setForm((prev) => ({
+      ...prev,
+      [field]: value,
     }));
   };
 
@@ -134,17 +141,12 @@ export const ViewTaskModal = ({ isOpen, onClose, onTaskUpdate, task }: ViewTaskM
             />
 
             <div>
-              <h3 className="ml-2 mt-4 py-2">Details</h3>
-              <textarea
-                className={clsx('w-full text-base ', inputClassName)}
-                name="description"
-                onChange={handleFormChange}
+              <h3 className="mb-2 ml-2 mt-4 py-2">Details</h3>
+              <DescriptionEdit
+                value={form.description}
+                onChange={handleFieldChange('description')}
                 onBlur={handleTaskUpdate}
-                disabled={loading}
-                placeholder="description here"
-              >
-                {task.description}
-              </textarea>
+              />
             </div>
           </div>
           <div className="flex flex-col pt-4 sm:w-72 sm:pl-4 sm:pt-0">
