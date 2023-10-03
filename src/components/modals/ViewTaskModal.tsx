@@ -114,7 +114,7 @@ export const ViewTaskModal = ({ isOpen, onClose, onTaskUpdate, task }: ViewTaskM
   };
 
   const inputClassName = clsx(
-    'inline-flex rounded  border border-transparent bg-transparent px-2 py-1  text-white outline-none hover:border-gray-800 hover:bg-gray-800 focus:border-gray-600 focus:bg-gray-700',
+    'inline-flex rounded  border border-transparent bg-transparent px-4 py-3  text-on-background outline-none hover:border-on-background/20 hover:bg-on-background/5 focus:border-on-background/20 focus:bg-on-background/10',
   );
 
   return (
@@ -127,7 +127,7 @@ export const ViewTaskModal = ({ isOpen, onClose, onTaskUpdate, task }: ViewTaskM
             close
           </Button>
         </div>
-        <div className="mb-8 flex flex-col space-y-4 divide-y px-4  py-4 sm:flex-row sm:space-x-4 sm:space-y-0 sm:divide-x sm:divide-y-0 ">
+        <div className="mb-8 flex flex-col space-y-4 divide-y divide-on-background/30 px-4 py-4 sm:flex-row sm:space-x-4 sm:space-y-0 sm:divide-x sm:divide-y-0 ">
           <div className="grow">
             <input
               type="text"
@@ -150,7 +150,7 @@ export const ViewTaskModal = ({ isOpen, onClose, onTaskUpdate, task }: ViewTaskM
             </div>
           </div>
           <div className="flex flex-col pt-4 sm:w-72 sm:pl-4 sm:pt-0">
-            <div className="mb-4 border-b border-dashed border-gray-500 pb-4">
+            <div className="mb-4 border-b border-dashed border-on-background/30 pb-4">
               <Button type="button" className="space-x-2" disabled={loading} onClick={handleToggleCompleteTaskUpdate}>
                 {form.isCompleted ? (
                   <>
@@ -165,8 +165,11 @@ export const ViewTaskModal = ({ isOpen, onClose, onTaskUpdate, task }: ViewTaskM
                 )}
               </Button>
             </div>
-            <div className="mb-2 text-black">
-              <p className="mb-2 cursor-help text-gray-400 underline" title={task.dueAt ? task.dueAt : undefined}>
+            <div className="mb-2 ">
+              <p
+                className="mb-2 cursor-help text-on-background/70 underline"
+                title={task.dueAt ? task.dueAt : undefined}
+              >
                 due at:
               </p>
               <DateTimePicker
@@ -176,31 +179,31 @@ export const ViewTaskModal = ({ isOpen, onClose, onTaskUpdate, task }: ViewTaskM
               />
             </div>
             <div className="mb-2">
-              <p className="mb-2 text-gray-400">category:</p>
+              <p className="mb-2 text-on-background/70">category:</p>
 
               <CategorySelect categoryId={task.categoryId} onChange={handleChangeCategory} disabled={loading} />
             </div>
             <p className="mb-2 inline-flex space-x-2">
-              <span className="text-gray-400">Category ordering:</span>
+              <span className="text-on-background/70">Category ordering:</span>
               <span className="font-bold">{task.category?.data?.ordering}</span>
             </p>
 
             <p className="mb-2 inline-flex space-x-2">
-              <span className="text-gray-400">created at:</span>
+              <span className="text-on-background/70">created at:</span>
 
               <span className="cursor-help font-bold underline" title={task.createdAt ? task.createdAt : undefined}>
                 {DateTime.fromISO(task.createdAt).toLocaleString(DateTime.DATETIME_SHORT)}
               </span>
             </p>
             <p className="mb-2 inline-flex space-x-2">
-              <span className="text-gray-400">updated at:</span>
+              <span className="text-on-background/70">updated at:</span>
 
               <span className="cursor-help font-bold underline" title={task.updatedAt ? task.updatedAt : undefined}>
                 {DateTime.fromISO(task.updatedAt).toLocaleString(DateTime.DATETIME_SHORT)}
               </span>
             </p>
             <p className="mb-2 inline-flex space-x-2">
-              <span className="text-gray-400">completed at:</span>
+              <span className="text-on-background/70">completed at:</span>
 
               <span className="cursor-help font-bold underline" title={task.completedAt ? task.completedAt : undefined}>
                 {task.completedAt ? DateTime.fromISO(task.completedAt).toLocaleString(DateTime.DATETIME_SHORT) : 'N/A'}
@@ -220,9 +223,9 @@ type ModalWrapperProps = {
 };
 
 export const ModalWrapper = ({ children, isOpen, onRequestClose }: ModalWrapperProps) => {
-  const overlayClassName = clsx('fixed inset-0 z-50 flex items-start justify-center bg-black bg-opacity-40');
+  const overlayClassName = clsx('fixed inset-0 z-50 flex items-start justify-center bg-black/20 backdrop-blur-sm');
   const contentClassName = clsx(
-    'mt-20 w-full max-w-screen-lg border-y  border-gray-700 bg-gray-900 md:mx-4 md:rounded-2xl md:border-x',
+    'bg-background mt-20 w-full max-w-screen-lg border-y border-on-background/10 md:mx-4 md:rounded-2xl md:border-x',
   );
   return (
     <Modal

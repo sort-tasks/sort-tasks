@@ -67,16 +67,17 @@ export const CategorySelect = ({ categoryId, onChange, disabled }: CategorySelec
       })}
     >
       {loading && <p>Loading...</p>}
-      <div className="absolute top-full mt-2 rounded-lg bg-[#423847]  py-4 shadow-xl shadow-black">
+      <div className="bg-surface-variant absolute top-full mt-2 rounded-lg  py-4 shadow-xl shadow-black">
         {!loading && categoryFilteredByTerm.length === 0 && <p className="px-4 py-2">No categories found.</p>}
         {categoryFilteredByTerm.map((category) => (
           <button
             key={category.id}
             type="button"
             onClick={handleCategorySelect(category)}
-            className="w-full bg-transparent px-4 py-2 text-left hover:bg-black hover:bg-opacity-10"
+            className="w-full bg-transparent px-4 py-2 text-left   hover:bg-black/10"
           >
-            <span className="text-white text-opacity-50">{category.ordering} / </span> <span>{category.name}</span>
+            <span className="text-on-surface-variant/50">{category.ordering} / </span>{' '}
+            <span className="text-on-surface-variant">{category.name}</span>
           </button>
         ))}
       </div>
@@ -88,7 +89,7 @@ export const CategorySelect = ({ categoryId, onChange, disabled }: CategorySelec
       {error?.message && <p className="text-red-500">{error.message}</p>}
       <PopperOverMenu dropdown={Menu} onClickOutside={handleClickOutside}>
         <input
-          className={clsx(inputClass, 'h-[42px]')}
+          className={clsx(inputClass, 'h-[46px]')}
           disabled={disabled}
           onFocus={handleOnFocus}
           value={categoryTerm}

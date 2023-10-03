@@ -21,18 +21,21 @@ export const DescriptionEdit = ({ value, onChange, onBlur }: DescriptionEditProp
       <div className="pl-1">
         <button
           onClick={() => setPreviewVisibility(true)}
-          className={clsx('w-24 rounded-tl-md border  border-b-0 border-[#30363d] bg-gray-800 px-4 py-2 text-white', {
-            'bg-[#0d1117]': previewVisibility,
-          })}
+          className={clsx(
+            'w-24 rounded-tl-md border  border-b-0 border-on-background/30 bg-on-background/10 px-4 py-2 text-on-background',
+            {
+              'bg-on-background/20': previewVisibility,
+            },
+          )}
         >
           Preview
         </button>
         <button
           onClick={() => setPreviewVisibility(false)}
           className={clsx(
-            'w-24 rounded-tr-md border border-b-0 border-l-0 border-[#30363d] bg-gray-800 px-4 py-2  text-white',
+            'w-24 rounded-tr-md border border-b-0 border-l-0 border-on-background/30 bg-on-background/10 px-4 py-2  text-on-background',
             {
-              'bg-[#0d1117]': !previewVisibility,
+              'bg-on-background/20': !previewVisibility,
             },
           )}
         >
@@ -43,7 +46,7 @@ export const DescriptionEdit = ({ value, onChange, onBlur }: DescriptionEditProp
       {previewVisibility ? (
         <MDEditor.Markdown
           source={value}
-          className="min-h-[150px] whitespace-pre-wrap rounded border border-[#30363d] p-4"
+          className="bg-background min-h-[200px] whitespace-pre-wrap rounded border border-on-background/50 p-4"
           rehypePlugins={[rehypeSanitize]}
         />
       ) : (
@@ -52,6 +55,7 @@ export const DescriptionEdit = ({ value, onChange, onBlur }: DescriptionEditProp
           onChange={handleMDChange}
           preview="edit"
           onBlur={onBlur}
+          className="border border-on-background/30 bg-on-background/10"
           previewOptions={{
             rehypePlugins: [[rehypeSanitize]],
           }}

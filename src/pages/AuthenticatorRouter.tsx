@@ -92,7 +92,7 @@ export const AuthenticatorRouter = ({ children }: { children: React.ReactNode })
   if (isLogged && user) {
     return (
       <>
-        <header className="mb-4 bg-gray-100 bg-opacity-10">
+        <header className="mb-4 bg-on-background/10">
           <div className="mx-auto flex max-w-screen-sm justify-between px-4 py-4">
             <h1 className="text-xl font-bold">Sort Tasks</h1>
             <h2 className="text-base font-bold">Hello, {user.firstName} 👋</h2>
@@ -107,13 +107,13 @@ export const AuthenticatorRouter = ({ children }: { children: React.ReactNode })
     <main className="mx-auto sm:max-w-screen-sm md:max-w-screen-md">
       <h1 className="my-14 text-center text-4xl font-bold">Sort Tasks</h1>
       <div className="flex flex-col space-y-8 pt-3 md:flex-row md:space-x-8 md:space-y-0">
-        <div className="w-full border-y border-gray-700 bg-gray-400 bg-opacity-10 px-6  py-8 sm:rounded-xl sm:border-x md:w-1/2">
+        <div className="w-full bg-on-background bg-opacity-10 px-6 py-8 text-on-background sm:rounded-xl md:w-1/2">
           <div className="mx-auto max-w-md">
-            <h2 className="my-2 mb-6 bg-opacity-10 text-center text-xl  font-bold">Login</h2>
+            <h2 className="my-2 mb-6 text-center text-xl font-bold">Login</h2>
             <Login onSubmit={handleLogin} />
           </div>
         </div>
-        <div className="w-full border-y border-gray-700 bg-gray-400 bg-opacity-10 px-6 py-8 sm:rounded-xl sm:border-x md:w-1/2">
+        <div className="w-full bg-on-background bg-opacity-10 px-6 py-8 text-on-background  sm:rounded-xl  md:w-1/2">
           <div className="mx-auto max-w-md">
             <h2 className="mb-6 bg-opacity-10 text-center text-xl font-bold  ">Register</h2>
             <Register onSubmit={handleRegister} />

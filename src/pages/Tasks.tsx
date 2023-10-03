@@ -58,8 +58,8 @@ export default function Tasks() {
       {error?.message && <p className="text-red-500">{error.message}</p>}
 
       <CreateNewTask onSubmit={handleSubmit} />
-      <div className="mb-2 flex justify-end border-y border-dashed border-gray-700 px-2 py-2">
-        <label className="inline-flex cursor-pointer items-center space-x-1 text-sm text-white text-opacity-50">
+      <div className="mb-2 flex justify-end border-y border-dashed border-on-background/30 px-2 py-2">
+        <label className="inline-flex cursor-pointer items-center space-x-1 text-sm  text-opacity-50">
           <input
             type="checkbox"
             className="h-5 w-5 rounded border border-gray-300"

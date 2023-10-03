@@ -50,14 +50,22 @@ export const Task = ({ index, task, onSelect }: TaskProps) => {
 
   const isLate = checkIsLate(task.dueAt);
 
+  let state: 'pending' | 'completed' | 'late' = 'pending';
+
+  if (task.isCompleted) {
+    state = 'completed';
+  } else if (isLate) {
+    state = 'late';
+  }
+
   return (
     <div
       className={clsx(
-        'flex items-stretch space-x-2 border-y  bg-opacity-10 p-2 pl-2 pr-4 text-opacity-50 hover:bg-opacity-20 active:bg-opacity-30 sm:rounded-md sm:border-x',
+        'flex items-stretch space-x-2 border-y p-2 pl-2 pr-4 text-opacity-50 shadow-on-background hover:shadow active:bg-opacity-30 sm:rounded-md sm:border-x',
         {
-          'border-gray-700 bg-gray-400 ': !isLate && !task.isCompleted,
-          'border-red-800 bg-red-500': isLate && !task.isCompleted,
-          'border-green-800 bg-green-500 ': task.isCompleted,
+          'border-on-background/10 bg-on-background/5 hover:bg-on-background/10': state === 'pending',
+          'border-red-700/10 bg-red-500/20 hover:bg-red-500/30': state === 'late',
+          'border-green-700/10 bg-green-500/20 hover:bg-green-500/30': state === 'completed',
         },
       )}
       role="button"
@@ -75,19 +83,19 @@ export const Task = ({ index, task, onSelect }: TaskProps) => {
         </button>
       </div>
 
-      <div className="flex w-10 shrink-0  items-center justify-center  border-x border-stone-700 text-2xl  text-white text-opacity-50">
+      <div className="flex w-10 shrink-0 items-center justify-center  border-x  border-on-background/10 text-2xl  text-on-background/50">
         {index}
       </div>
       <div className="shrink">
         <h3
-          className={clsx('text-base text-white', {
+          className={clsx('text-base font-medium text-on-background', {
             'text-opacity-50': task.isCompleted,
           })}
         >
           {task.title}
         </h3>
         <p
-          className={clsx('text-sm text-white text-opacity-50', {
+          className={clsx('text-sm text-on-background text-opacity-60', {
             'text-opacity-50': !task.isCompleted,
             'text-opacity-30': task.isCompleted,
           })}
@@ -95,9 +103,9 @@ export const Task = ({ index, task, onSelect }: TaskProps) => {
           <span className="mr-1">{task.category.data?.name}</span>
           {!!task.dueAt && !task.isCompleted && (
             <>
-              <span className="mr-1 text-white text-opacity-20">-</span>
+              <span className="mr-1 text-on-background text-opacity-20">-</span>
               <span
-                className={clsx('whitespace-nowrap rounded bg-opacity-10 px-2 text-white text-opacity-30', {
+                className={clsx('whitespace-nowrap rounded bg-opacity-40 px-2 text-xs text-on-surface', {
                   'bg-orange-500': isDueAtExistsAndAtPassed,
                   'bg-blue-500': !isDueAtExistsAndAtPassed,
                 })}
