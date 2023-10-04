@@ -16,7 +16,7 @@ export const Comments = ({ task, onSave }: CommentsProps) => {
 
   return (
     <div className="mt-8">
-      <div className="my-4 font-medium">Comments</div>
+      <div className="my-4 border-b border-on-background/30 pb-2 font-medium">Comments</div>
       <div className="space-y-8">
         <div className="space-y-4">
           {comments.map((activity) => {

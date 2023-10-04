@@ -12,7 +12,7 @@ export const TaskActivities = ({ task }: TaskActivitiesProps) => {
 
   return (
     <div className="mt-8">
-      <div className="my-4 font-medium">Activities</div>
+      <div className="my-4 border-b border-on-background/30 pb-2 font-medium">Activities</div>
       <div className="space-y-8">
         {activities.map((activity) => {
           if (activity.action === 'COMMENT') {

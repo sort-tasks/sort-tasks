@@ -120,7 +120,7 @@ const TaskForm = ({ task, onTaskUpdate, onClose }: TaskFormProps) => {
   };
 
   const inputClassName = clsx(
-    'inline-flex rounded  border border-transparent bg-transparent px-4 py-3  text-on-background outline-none hover:border-on-background/20 hover:bg-on-background/5 focus:border-on-background/20 focus:bg-on-background/10',
+    'inline-flex rounded  border border-transparent bg-transparent py-3 text-on-background  outline-none hover:border-on-background/20 hover:bg-on-background/5 focus:border-on-background/20 focus:bg-on-background/10 focus:px-4',
   );
 
   const handleSaveComment = () => {
@@ -152,7 +152,7 @@ const TaskForm = ({ task, onTaskUpdate, onClose }: TaskFormProps) => {
           />
 
           <div>
-            <h3 className="mb-2 ml-2 mt-4 py-2">Details</h3>
+            <h3 className="mb-2 mt-4 border-b border-on-background/30 py-2 font-medium ">Details</h3>
             <DescriptionEdit
               value={form.description}
               onChange={handleFieldChange('description')}
