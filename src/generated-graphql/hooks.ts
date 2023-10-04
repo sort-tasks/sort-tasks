@@ -34,6 +34,40 @@ export const TaskFragmentDoc = gql`
   }
 }
     `;
+export const TaskCompletedFragmentDoc = gql`
+    fragment TaskCompleted on Task {
+  id
+  title
+  isCompleted
+  dueAt
+  description
+  createdAt
+  completedAt
+  categoryId
+  category {
+    data {
+      createdAt
+      description
+      name
+      updatedAt
+      ordering
+      id
+    }
+  }
+  updatedAt
+  activity {
+    data {
+      action
+      after
+      before
+      createdAt
+      description
+      id
+      updatedAt
+    }
+  }
+}
+    `;
 export const MeDocument = gql`
     query Me {
   me {
@@ -180,6 +214,45 @@ export function useFindManyCategoryLazyQuery(baseOptions?: Apollo.LazyQueryHookO
 export type FindManyCategoryQueryHookResult = ReturnType<typeof useFindManyCategoryQuery>;
 export type FindManyCategoryLazyQueryHookResult = ReturnType<typeof useFindManyCategoryLazyQuery>;
 export type FindManyCategoryQueryResult = Apollo.QueryResult<Types.FindManyCategoryQuery, Types.FindManyCategoryQueryVariables>;
+export const TaskActivityCreateDocument = gql`
+    mutation TaskActivityCreate($input: TaskActivityCreateInput!) {
+  taskActivityCreate(input: $input) {
+    action
+    after
+    before
+    createdAt
+    description
+    id
+    updatedAt
+  }
+}
+    `;
+export type TaskActivityCreateMutationFn = Apollo.MutationFunction<Types.TaskActivityCreateMutation, Types.TaskActivityCreateMutationVariables>;
+
+/**
+ * __useTaskActivityCreateMutation__
+ *
+ * To run a mutation, you first call `useTaskActivityCreateMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useTaskActivityCreateMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [taskActivityCreateMutation, { data, loading, error }] = useTaskActivityCreateMutation({
+ *   variables: {
+ *      input: // value for 'input'
+ *   },
+ * });
+ */
+export function useTaskActivityCreateMutation(baseOptions?: Apollo.MutationHookOptions<Types.TaskActivityCreateMutation, Types.TaskActivityCreateMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<Types.TaskActivityCreateMutation, Types.TaskActivityCreateMutationVariables>(TaskActivityCreateDocument, options);
+      }
+export type TaskActivityCreateMutationHookResult = ReturnType<typeof useTaskActivityCreateMutation>;
+export type TaskActivityCreateMutationResult = Apollo.MutationResult<Types.TaskActivityCreateMutation>;
+export type TaskActivityCreateMutationOptions = Apollo.BaseMutationOptions<Types.TaskActivityCreateMutation, Types.TaskActivityCreateMutationVariables>;
 export const FindManyTaskDocument = gql`
     query FindManyTask {
   findManyTask {
@@ -325,3 +398,40 @@ export function useOrderedTasksByCategoryLazyQuery(baseOptions?: Apollo.LazyQuer
 export type OrderedTasksByCategoryQueryHookResult = ReturnType<typeof useOrderedTasksByCategoryQuery>;
 export type OrderedTasksByCategoryLazyQueryHookResult = ReturnType<typeof useOrderedTasksByCategoryLazyQuery>;
 export type OrderedTasksByCategoryQueryResult = Apollo.QueryResult<Types.OrderedTasksByCategoryQuery, Types.OrderedTasksByCategoryQueryVariables>;
+export const FindUniqueTaskDocument = gql`
+    query FindUniqueTask($taskId: UUID!) {
+  findUniqueTask(id: $taskId) {
+    data {
+      ...TaskCompleted
+    }
+  }
+}
+    ${TaskCompletedFragmentDoc}`;
+
+/**
+ * __useFindUniqueTaskQuery__
+ *
+ * To run a query within a React component, call `useFindUniqueTaskQuery` and pass it any options that fit your needs.
+ * When your component renders, `useFindUniqueTaskQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useFindUniqueTaskQuery({
+ *   variables: {
+ *      taskId: // value for 'taskId'
+ *   },
+ * });
+ */
+export function useFindUniqueTaskQuery(baseOptions: Apollo.QueryHookOptions<Types.FindUniqueTaskQuery, Types.FindUniqueTaskQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<Types.FindUniqueTaskQuery, Types.FindUniqueTaskQueryVariables>(FindUniqueTaskDocument, options);
+      }
+export function useFindUniqueTaskLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Types.FindUniqueTaskQuery, Types.FindUniqueTaskQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<Types.FindUniqueTaskQuery, Types.FindUniqueTaskQueryVariables>(FindUniqueTaskDocument, options);
+        }
+export type FindUniqueTaskQueryHookResult = ReturnType<typeof useFindUniqueTaskQuery>;
+export type FindUniqueTaskLazyQueryHookResult = ReturnType<typeof useFindUniqueTaskLazyQuery>;
+export type FindUniqueTaskQueryResult = Apollo.QueryResult<Types.FindUniqueTaskQuery, Types.FindUniqueTaskQueryVariables>;

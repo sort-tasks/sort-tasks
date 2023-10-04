@@ -72,6 +72,7 @@ export type Mutation = {
   authLogin?: Maybe<AuthLoginResult>;
   authRegister?: Maybe<Scalars['String']['output']>;
   categoryCreate: Category;
+  taskActivityCreate: TaskActivity;
   taskCreate: Task;
   taskDelete: Task;
   taskUpdate: Task;
@@ -90,6 +91,11 @@ export type MutationAuthRegisterArgs = {
 
 export type MutationCategoryCreateArgs = {
   input: CategoryCreateInput;
+};
+
+
+export type MutationTaskActivityCreateArgs = {
+  input: TaskActivityCreateInput;
 };
 
 
@@ -117,6 +123,7 @@ export type Query = {
   __typename?: 'Query';
   findManyCategory: CategoryListResult;
   findManyTask: TaskListResult;
+  findUniqueTask?: Maybe<TaskSingleResult>;
   me?: Maybe<User>;
   orderedTasksByCategory: TaskListResult;
 };
@@ -133,8 +140,14 @@ export type QueryFindManyTaskArgs = {
   take?: InputMaybe<Scalars['Int']['input']>;
 };
 
+
+export type QueryFindUniqueTaskArgs = {
+  id: Scalars['UUID']['input'];
+};
+
 export type Task = {
   __typename?: 'Task';
+  activity: TaskActivityListResult;
   category: CategorySingleResult;
   categoryId: Scalars['UUID']['output'];
   completedAt?: Maybe<Scalars['DateTime']['output']>;
@@ -147,9 +160,30 @@ export type Task = {
   updatedAt: Scalars['DateTime']['output'];
 };
 
+export type TaskActivity = {
+  __typename?: 'TaskActivity';
+  action: Scalars['String']['output'];
+  after?: Maybe<Scalars['String']['output']>;
+  before?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['DateTime']['output'];
+  description?: Maybe<Scalars['String']['output']>;
+  id: Scalars['UUID']['output'];
+  updatedAt: Scalars['DateTime']['output'];
+};
+
+export type TaskActivityCreateInput = {
+  action: Scalars['String']['input'];
+  description?: InputMaybe<Scalars['String']['input']>;
+  taskId: Scalars['UUID']['input'];
+};
+
+export type TaskActivityListResult = {
+  __typename?: 'TaskActivityListResult';
+  data?: Maybe<Array<TaskActivity>>;
+};
+
 export type TaskCreateInput = {
   categoryId: Scalars['UUID']['input'];
-  completedAt?: InputMaybe<Scalars['DateTime']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   dueAt?: InputMaybe<Scalars['DateTime']['input']>;
   isCompleted?: InputMaybe<Scalars['Boolean']['input']>;
@@ -162,9 +196,13 @@ export type TaskListResult = {
   pagination: Pagination;
 };
 
+export type TaskSingleResult = {
+  __typename?: 'TaskSingleResult';
+  data?: Maybe<Task>;
+};
+
 export type TaskUpdateInput = {
   categoryId: Scalars['UUID']['input'];
-  completedAt?: InputMaybe<Scalars['DateTime']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
   dueAt?: InputMaybe<Scalars['DateTime']['input']>;
   isCompleted?: InputMaybe<Scalars['Boolean']['input']>;
@@ -209,7 +247,16 @@ export type FindManyCategoryQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type FindManyCategoryQuery = { __typename?: 'Query', findManyCategory: { __typename?: 'CategoryListResult', pagination: { __typename?: 'Pagination', totalItems?: number | null }, data?: Array<{ __typename?: 'Category', createdAt: string, id: string, name: string, ordering: number, updatedAt: string }> | null } };
 
+export type TaskActivityCreateMutationVariables = Exact<{
+  input: TaskActivityCreateInput;
+}>;
+
+
+export type TaskActivityCreateMutation = { __typename?: 'Mutation', taskActivityCreate: { __typename?: 'TaskActivity', action: string, after?: string | null, before?: string | null, createdAt: string, description?: string | null, id: string, updatedAt: string } };
+
 export type TaskFragment = { __typename?: 'Task', updatedAt: string, title: string, isCompleted: boolean, id: string, description?: string | null, createdAt: string, dueAt?: string | null, completedAt?: string | null, categoryId: string, category: { __typename?: 'CategorySingleResult', data?: { __typename?: 'Category', id: string, name: string, ordering: number, updatedAt: string, createdAt: string } | null } };
+
+export type TaskCompletedFragment = { __typename?: 'Task', id: string, title: string, isCompleted: boolean, dueAt?: string | null, description?: string | null, createdAt: string, completedAt?: string | null, categoryId: string, updatedAt: string, category: { __typename?: 'CategorySingleResult', data?: { __typename?: 'Category', createdAt: string, description?: string | null, name: string, updatedAt: string, ordering: number, id: string } | null }, activity: { __typename?: 'TaskActivityListResult', data?: Array<{ __typename?: 'TaskActivity', action: string, after?: string | null, before?: string | null, createdAt: string, description?: string | null, id: string, updatedAt: string }> | null } };
 
 export type FindManyTaskQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -235,3 +282,10 @@ export type OrderedTasksByCategoryQueryVariables = Exact<{ [key: string]: never;
 
 
 export type OrderedTasksByCategoryQuery = { __typename?: 'Query', orderedTasksByCategory: { __typename?: 'TaskListResult', pagination: { __typename?: 'Pagination', totalItems?: number | null }, data?: Array<{ __typename?: 'Task', updatedAt: string, title: string, isCompleted: boolean, id: string, description?: string | null, createdAt: string, dueAt?: string | null, completedAt?: string | null, categoryId: string, category: { __typename?: 'CategorySingleResult', data?: { __typename?: 'Category', id: string, name: string, ordering: number, updatedAt: string, createdAt: string } | null } }> | null } };
+
+export type FindUniqueTaskQueryVariables = Exact<{
+  taskId: Scalars['UUID']['input'];
+}>;
+
+
+export type FindUniqueTaskQuery = { __typename?: 'Query', findUniqueTask?: { __typename?: 'TaskSingleResult', data?: { __typename?: 'Task', id: string, title: string, isCompleted: boolean, dueAt?: string | null, description?: string | null, createdAt: string, completedAt?: string | null, categoryId: string, updatedAt: string, category: { __typename?: 'CategorySingleResult', data?: { __typename?: 'Category', createdAt: string, description?: string | null, name: string, updatedAt: string, ordering: number, id: string } | null }, activity: { __typename?: 'TaskActivityListResult', data?: Array<{ __typename?: 'TaskActivity', action: string, after?: string | null, before?: string | null, createdAt: string, description?: string | null, id: string, updatedAt: string }> | null } } | null } | null };

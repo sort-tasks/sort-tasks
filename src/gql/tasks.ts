@@ -23,6 +23,41 @@ const TaskFragment = gql`
   }
 `;
 
+const TaskCompletedFragment = gql`
+  fragment TaskCompleted on Task {
+    id
+    title
+    isCompleted
+    dueAt
+    description
+    createdAt
+    completedAt
+    categoryId
+    category {
+      data {
+        createdAt
+        description
+        name
+        updatedAt
+        ordering
+        id
+      }
+    }
+    updatedAt
+    activity {
+      data {
+        action
+        after
+        before
+        createdAt
+        description
+        id
+        updatedAt
+      }
+    }
+  }
+`;
+
 export const FindManyTasks = gql`
   query FindManyTask {
     findManyTask {
@@ -64,4 +99,15 @@ export const OrderedTasksByCategory = gql`
       }
     }
   }
+`;
+
+export const FindUniqueTask = gql`
+  query FindUniqueTask($taskId: UUID!) {
+    findUniqueTask(id: $taskId) {
+      data {
+        ...TaskCompleted
+      }
+    }
+  }
+  ${TaskCompletedFragment}
 `;
